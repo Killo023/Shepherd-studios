@@ -35,20 +35,20 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between min-h-[120px] py-4">
           {/* Logo */}
-          <Link href="/" className="flex items-center px-6 md:px-8 lg:px-10">
-            <Image
-              src="/images/logo/shepherd-studios-logo-transparent.png"
-              alt="Shepherd Studios"
-              width={270}
-              height={102}
-              className={`h-[94px] w-auto transition-all duration-300 ${
-                scrolled || shouldUseWhiteNavbar
-                  ? '' 
-                  : 'brightness-0 invert drop-shadow-[0_2px_8px_rgba(255,255,255,0.9)]'
-              }`}
-              priority
-            />
-          </Link>
+              <Link href="/" className="flex items-center px-6 md:px-8 lg:px-10">
+                <Image
+                  src="/images/logo/shepherd-studios-logo-transparent.png"
+                  alt="Shepherd Studios"
+                  width={270}
+                  height={102}
+                  className={`h-16 md:h-20 lg:h-[94px] w-auto transition-all duration-300 ${
+                    scrolled || shouldUseWhiteNavbar
+                      ? '' 
+                      : 'brightness-0 invert drop-shadow-[0_2px_8px_rgba(255,255,255,0.9)]'
+                  }`}
+                  priority
+                />
+              </Link>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
