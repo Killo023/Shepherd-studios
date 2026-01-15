@@ -32,19 +32,19 @@ export default function TeamSection() {
             className="lg:col-span-1 relative"
           >
             {/* Logo */}
-            <div className="mb-8">
+            <div className="mb-12">
               <Image
                 src="/images/logo/shepherd-studios-logo-transparent.png"
                 alt="Shepherd Studios Logo"
                 width={400}
                 height={150}
-                className="h-auto w-auto max-w-[400px] md:max-w-[500px]"
+                className="h-auto w-auto max-w-[350px] md:max-w-[400px]"
                 priority
               />
             </div>
 
             {/* Title */}
-            <div className="flex flex-col">
+            <div className="flex flex-col mt-8">
               <h2 className="text-3xl md:text-4xl font-normal text-primary mb-2">
                 Meet the
               </h2>
