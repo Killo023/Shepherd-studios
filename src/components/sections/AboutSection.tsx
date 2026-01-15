@@ -1,7 +1,6 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import Logo3D from '@/components/3d/Logo3D';
 import Image from 'next/image';
 
 export default function AboutSection() {
@@ -20,15 +19,21 @@ export default function AboutSection() {
       
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-          {/* 3D Logo */}
+          {/* Image */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="h-64 lg:h-96 flex items-center justify-center"
+            className="h-64 lg:h-96 flex items-center justify-center relative rounded-lg overflow-hidden"
           >
-            <Logo3D />
+            <Image
+              src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800&q=80"
+              alt="Creative studio workspace"
+              fill
+              className="object-cover rounded-lg"
+              unoptimized
+            />
           </motion.div>
           
           {/* Content */}
