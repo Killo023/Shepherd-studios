@@ -20,14 +20,14 @@ export default function TestimonialSection() {
               {/* Opening Quotation Mark - Large and stylized */}
               <div className="absolute top-6 left-8 md:top-8 md:left-12">
                 <span className="text-7xl md:text-9xl font-serif text-primary opacity-40 leading-none">
-                  "
+                  &quot;
                 </span>
               </div>
               
               {/* Testimonial Content */}
               <div className="relative z-10">
                 <p className="text-primary text-lg md:text-xl lg:text-2xl leading-relaxed mb-8 font-normal pl-4 md:pl-6">
-                  Shepherd Studios' expertise transformed our ngo. Amateur materials became professional, boosting credibility. Visual storytelling in proposals deepened donor connections, significantly improving fundraising results.
+                  Shepherd Studios&apos; expertise transformed our ngo. Amateur materials became professional, boosting credibility. Visual storytelling in proposals deepened donor connections, significantly improving fundraising results.
                 </p>
                 
                 {/* Attribution */}
@@ -42,7 +42,7 @@ export default function TestimonialSection() {
               {/* Closing Quotation Mark - Bottom right */}
               <div className="absolute bottom-6 right-10 md:bottom-8 md:right-14">
                 <span className="text-7xl md:text-9xl font-serif text-primary opacity-40 leading-none">
-                  "
+                  &quot;
                 </span>
               </div>
             </div>

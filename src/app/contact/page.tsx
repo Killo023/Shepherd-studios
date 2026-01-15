@@ -27,7 +27,7 @@ export default function ContactPage() {
               Contact Us
             </h1>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              We'd love to hear from you. Get in touch and let's start a conversation
+              We&apos;d love to hear from you. Get in touch and let&apos;s start a conversation
             </p>
           </motion.div>
         </div>

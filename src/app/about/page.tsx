@@ -86,7 +86,7 @@ export default function AboutPage() {
               </p>
               <p className="text-lg text-lightBlue leading-relaxed">
                 We believe in the power of technology to transform ideas into
-                reality, and we're committed to delivering excellence in every
+                reality, and we&apos;re committed to delivering excellence in every
                 project we undertake.
               </p>
             </motion.div>
@@ -101,7 +101,7 @@ export default function AboutPage() {
               <p className="text-lg text-lightBlue mb-4 leading-relaxed">
                 We envision a future where digital experiences are seamless,
                 intuitive, and transformative. Our vision drives us to push the
-                boundaries of what's possible.
+                boundaries of what&apos;s possible.
               </p>
               <p className="text-lg text-lightBlue leading-relaxed">
                 Through innovation, creativity, and dedication, we strive to be
