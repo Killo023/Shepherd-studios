@@ -1,0 +1,144 @@
+'use client';
+
+import { motion } from 'framer-motion';
+
+export default function HeroSection() {
+  return (
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      {/* Background Video */}
+      <div className="absolute inset-0 z-0">
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover"
+        >
+          <source src="/videos/hero-background.mp4" type="video/mp4" />
+          {/* Fallback image if video doesn't load */}
+          <div className="absolute inset-0 bg-gradient-to-b from-primary/90 via-primary/80 to-primary/90" />
+        </video>
+        {/* Gradient Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-b from-primary/90 via-primary/80 to-primary/90" />
+        {/* Subtle pattern overlay */}
+        <div className="absolute inset-0 opacity-10" style={{
+          backgroundImage: 'radial-gradient(circle at 2px 2px, white 1px, transparent 0)',
+          backgroundSize: '40px 40px'
+        }} />
+      </div>
+      
+      {/* Content */}
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          {/* Left: Text Content */}
+          <motion.div
+            initial={{ opacity: 0, x: -50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8 }}
+            className="text-white"
+          >
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="mb-6"
+            >
+              <span className="text-lg md:text-xl font-medium text-white/90 uppercase tracking-wider">
+                Welcome to
+              </span>
+            </motion.div>
+            
+            <motion.h1
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.3 }}
+              className="text-5xl md:text-7xl lg:text-8xl font-bold mb-6 leading-tight"
+            >
+              Shepherd{' '}
+              <span className="text-white/90">Studios</span>
+            </motion.h1>
+            
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+              className="text-xl md:text-2xl text-white/90 mb-8 leading-relaxed"
+            >
+              Creating exceptional digital experiences with cutting-edge technology
+              and innovative design
+            </motion.p>
+            
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.5 }}
+              className="flex flex-col sm:flex-row gap-4"
+            >
+              <a
+                href="#services"
+                className="px-8 py-4 bg-white text-primary rounded-lg font-semibold hover:bg-white/90 transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-1"
+              >
+                Our Services
+              </a>
+              <a
+                href="/portfolio"
+                className="px-8 py-4 bg-transparent border-2 border-white text-white rounded-lg font-semibold hover:bg-white hover:text-primary transition-all"
+              >
+                View Portfolio
+              </a>
+            </motion.div>
+          </motion.div>
+
+          {/* Right: Visual Element or Stats */}
+          <motion.div
+            initial={{ opacity: 0, x: 50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 0.3 }}
+            className="hidden lg:block"
+          >
+            <div className="bg-white/10 backdrop-blur-md rounded-2xl p-8 border border-white/20">
+              <div className="grid grid-cols-2 gap-6">
+                <div className="text-center">
+                  <div className="text-4xl md:text-5xl font-bold text-white mb-2">50+</div>
+                  <div className="text-white/80 text-sm uppercase tracking-wider">Projects</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-4xl md:text-5xl font-bold text-white mb-2">15+</div>
+                  <div className="text-white/80 text-sm uppercase tracking-wider">Clients</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-4xl md:text-5xl font-bold text-white mb-2">100%</div>
+                  <div className="text-white/80 text-sm uppercase tracking-wider">Satisfaction</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-4xl md:text-5xl font-bold text-white mb-2">5+</div>
+                  <div className="text-white/80 text-sm uppercase tracking-wider">Years</div>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      </div>
+
+      {/* Scroll Indicator */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1, delay: 1 }}
+        className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-10"
+      >
+        <motion.div
+          animate={{ y: [0, 10, 0] }}
+          transition={{ duration: 1.5, repeat: Infinity }}
+          className="w-6 h-10 border-2 border-white/50 rounded-full flex justify-center"
+        >
+          <motion.div
+            animate={{ y: [0, 12, 0] }}
+            transition={{ duration: 1.5, repeat: Infinity }}
+            className="w-1 h-3 bg-white/50 rounded-full mt-2"
+          />
+        </motion.div>
+      </motion.div>
+    </section>
+  );
+}
