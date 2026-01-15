@@ -24,7 +24,7 @@ export default function VideoGallery({
 }: VideoGalleryProps) {
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
 
-  const categories = ['all', ...new Set(videos.map((v) => v.category).filter(Boolean))];
+  const categories = ['all', ...Array.from(new Set(videos.map((v) => v.category).filter((cat): cat is string => Boolean(cat))))];
 
   const filteredVideos =
     selectedCategory === 'all'
