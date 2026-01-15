@@ -10,11 +10,11 @@ export const metadata: Metadata = {
   description: 'Creating exceptional digital experiences with cutting-edge technology and innovative design',
   icons: {
     icon: [
-      { url: '/images/logo/shepherd-studios-logo-transparent.png', sizes: '32x32', type: 'image/png' },
-      { url: '/images/logo/shepherd-studios-logo-transparent.png', sizes: '16x16', type: 'image/png' },
+      { url: '/favicon.png', sizes: '32x32', type: 'image/png' },
+      { url: '/favicon.png', sizes: '16x16', type: 'image/png' },
     ],
     apple: [
-      { url: '/images/logo/shepherd-studios-logo-transparent.png', sizes: '180x180', type: 'image/png' },
+      { url: '/favicon.png', sizes: '180x180', type: 'image/png' },
     ],
   },
 };
