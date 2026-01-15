@@ -57,7 +57,7 @@ export default function HeroSection() {
       
       {/* Content */}
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div className="grid grid-cols-1 gap-12 items-center">
           {/* Left: Text Content */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
@@ -117,34 +117,6 @@ export default function HeroSection() {
             </motion.div>
           </motion.div>
 
-          {/* Right: Visual Element or Stats */}
-          <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.3 }}
-            className="hidden lg:block"
-          >
-            <div className="bg-white/10 backdrop-blur-md rounded-2xl p-8 border border-white/20">
-              <div className="grid grid-cols-2 gap-6">
-                <div className="text-center">
-                  <div className="text-4xl md:text-5xl font-bold text-white mb-2">50+</div>
-                  <div className="text-white/80 text-sm uppercase tracking-wider">Projects</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-4xl md:text-5xl font-bold text-white mb-2">15+</div>
-                  <div className="text-white/80 text-sm uppercase tracking-wider">Clients</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-4xl md:text-5xl font-bold text-white mb-2">100%</div>
-                  <div className="text-white/80 text-sm uppercase tracking-wider">Satisfaction</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-4xl md:text-5xl font-bold text-white mb-2">5+</div>
-                  <div className="text-white/80 text-sm uppercase tracking-wider">Years</div>
-                </div>
-              </div>
-            </div>
-          </motion.div>
         </div>
       </div>
 
