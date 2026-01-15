@@ -194,7 +194,7 @@ export default function ServicesPage() {
                     The Problem
                   </h3>
                   <p className="text-primary text-lg leading-relaxed">
-                    In today's digital jungle, businesses are like peacocks trying to show off their feathers to get noticed. But here's the thing: even the brightest feathers can lose their shine quickly. That's why many smart companies are leaving behind old-style graphic design and choosing new ways to keep people interested.
+                    In today&apos;s digital jungle, businesses are like peacocks trying to show off their feathers to get noticed. But here&apos;s the thing: even the brightest feathers can lose their shine quickly. That&apos;s why many smart companies are leaving behind old-style graphic design and choosing new ways to keep people interested.
                   </p>
                 </div>
 
@@ -304,7 +304,7 @@ export default function ServicesPage() {
           >
             <h2 className="text-4xl md:text-5xl font-bold mb-4">Ready to Get Started?</h2>
             <p className="text-xl mb-8 opacity-90 max-w-2xl mx-auto">
-              Let's discuss how we can help bring your vision to life with engaging motion graphics and creative design
+              Let&apos;s discuss how we can help bring your vision to life with engaging motion graphics and creative design
             </p>
             <a
               href="/contact"

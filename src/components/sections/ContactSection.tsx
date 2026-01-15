@@ -53,7 +53,7 @@ export default function ContactSection() {
           </span>
           <h2 className="text-4xl md:text-5xl font-bold mb-6 text-primary">Get In Touch</h2>
           <p className="text-xl text-lightBlue max-w-2xl mx-auto">
-            Have a project in mind? Let's discuss how we can help
+            Have a project in mind? Let&apos;s discuss how we can help
           </p>
         </motion.div>
         
