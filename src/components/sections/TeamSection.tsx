@@ -31,25 +31,16 @@ export default function TeamSection() {
             transition={{ duration: 0.8 }}
             className="lg:col-span-1 relative"
           >
-            {/* Logo/Icon - Stylized "2" or ribbon */}
+            {/* Logo */}
             <div className="mb-8">
-              <svg
-                width="60"
-                height="60"
-                viewBox="0 0 60 60"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                className="text-primary"
-              >
-                <path
-                  d="M 10 20 Q 15 10, 25 10 Q 35 10, 40 16 Q 45 22, 42 30 Q 40 35, 35 38 M 28 40 L 36 40 M 32 46 L 40 46 M 38 52 L 38 52"
-                  stroke="currentColor"
-                  strokeWidth="3"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  fill="none"
-                />
-              </svg>
+              <Image
+                src="/images/logo/shepherd-studios-logo-transparent.png"
+                alt="Shepherd Studios Logo"
+                width={400}
+                height={150}
+                className="h-auto w-auto max-w-[400px] md:max-w-[500px]"
+                priority
+              />
             </div>
 
             {/* Title */}
