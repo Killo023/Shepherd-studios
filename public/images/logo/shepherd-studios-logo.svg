@@ -1,0 +1,20 @@
+<svg width="200" height="60" viewBox="0 0 200 60" xmlns="http://www.w3.org/2000/svg">
+  <!-- Graphic Logo (Left Side) -->
+  <g fill="none" stroke="#1a5f7a" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Upper curved shape (shepherd's crook) - more accurate -->
+    <path d="M 8 22 Q 10 12, 16 10 Q 22 8, 28 12 Q 34 16, 32 24 Q 30 30, 24 32" />
+    
+    <!-- Lower part - three diagonal elements (ascending) -->
+    <line x1="20" y1="34" x2="26" y2="34" />
+    <line x1="24" y1="38" x2="30" y2="38" />
+    <circle cx="28" cy="42" r="2.5" fill="#1a5f7a" />
+  </g>
+  
+  <!-- Text (Right Side) -->
+  <g fill="#1a5f7a" font-family="Arial, sans-serif">
+    <!-- "Shepherd" - bold -->
+    <text x="45" y="20" font-size="18" font-weight="700" letter-spacing="0.5">Shepherd</text>
+    <!-- "Studios." - lighter weight -->
+    <text x="45" y="38" font-size="14" font-weight="400" letter-spacing="0.3">Studios.</text>
+  </g>
+</svg>
