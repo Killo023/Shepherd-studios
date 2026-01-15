@@ -16,10 +16,10 @@ export default function HeroSection() {
         >
           <source src="/videos/hero-background.mp4" type="video/mp4" />
           {/* Fallback image if video doesn't load */}
-          <div className="absolute inset-0 bg-gradient-to-b from-primary/90 via-primary/80 to-primary/90" />
+          <div className="absolute inset-0 bg-gradient-to-b from-primary/70 via-primary/60 to-primary/70" />
         </video>
-        {/* Gradient Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-b from-primary/90 via-primary/80 to-primary/90" />
+            {/* Gradient Overlay */}
+            <div className="absolute inset-0 bg-gradient-to-b from-primary/70 via-primary/60 to-primary/70" />
         {/* Subtle pattern overlay */}
         <div className="absolute inset-0 opacity-10" style={{
           backgroundImage: 'radial-gradient(circle at 2px 2px, white 1px, transparent 0)',
