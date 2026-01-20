@@ -44,8 +44,9 @@ export default function HeroSection() {
       <div className="absolute inset-0 z-0 overflow-hidden">
         {useIframe ? (
           // Fallback to iframe if HTML5 video fails (Google Drive limitation)
+          // Note: Google Drive iframes don't reliably support autoplay/loop
           <iframe
-            src={googleDrivePreviewUrl}
+            src={`${googleDrivePreviewUrl}?autoplay=1&loop=1&mute=1`}
             className="absolute inset-0 w-full h-full z-0"
             style={{ 
               pointerEvents: 'none',
@@ -62,7 +63,7 @@ export default function HeroSection() {
             scrolling="no"
           />
         ) : (
-          // Try HTML5 video first (may work in some cases)
+          // Try HTML5 video first - supports autoplay and loop properly
           <video
             ref={videoRef}
             autoPlay
@@ -73,15 +74,25 @@ export default function HeroSection() {
             className="absolute inset-0 w-full h-full object-cover z-0"
             style={{ pointerEvents: 'none' }}
             onError={(e) => {
-              console.error('HTML5 video failed, switching to iframe');
+              console.error('HTML5 video failed (likely CORS), switching to iframe');
+              console.error('Error details:', (e.target as HTMLVideoElement).error);
               setUseIframe(true);
             }}
             onLoadedData={() => {
-              console.log('Hero video loaded successfully');
-              videoRef.current?.play().catch(() => setUseIframe(true));
+              console.log('Hero video loaded successfully - autoplay and loop enabled');
+              videoRef.current?.play().catch((error) => {
+                console.warn('Autoplay prevented, switching to iframe:', error);
+                setUseIframe(true);
+              });
+            }}
+            onCanPlay={() => {
+              videoRef.current?.play().catch(() => {
+                setUseIframe(true);
+              });
             }}
           >
             <source src={googleDriveDirectUrl} type="video/mp4" />
+            Your browser does not support the video tag.
           </video>
         )}
         {/* Gradient Overlay - subtle overlay for text readability, positioned above video but below content */}
