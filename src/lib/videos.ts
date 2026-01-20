@@ -68,51 +68,51 @@ const getVideoUrl = (path: string): string => {
 export const videoData = [
   {
     id: '1',
-    title: 'Pizza Hut - Brand Campaign',
-    description: 'Brand campaign video for Pizza Hut showcasing our creative video production capabilities',
+    title: 'Knorr Durban July Corporate Video',
+    description: '', // Add description when available
     thumbnail: '/images/videos/placeholder.svg',
     videoPath: 'https://drive.google.com/file/d/190WtYyk4GN2jk4-vmgFgDcuvN9K3a53j/view?usp=drive_link',
-    category: 'brand-campaign',
+    category: 'corporate',
   },
   {
     id: '2',
-    title: 'Puma - Brand Campaign',
-    description: 'Dynamic brand campaign video for Puma featuring our high-energy video production style',
+    title: 'Knorr Cook-Off Highlight Video',
+    description: '', // Add description when available
     thumbnail: '/images/videos/placeholder.svg',
     videoPath: 'https://drive.google.com/file/d/1X0iaMau0O0NCMOx28TIGvt0EQ7mGkhJM/view?usp=drive_link',
-    category: 'brand-campaign',
+    category: 'corporate',
   },
   {
     id: '3',
-    title: 'Melrose Arch - Brand Campaign',
-    description: 'Brand campaign showcasing Melrose Arch with our professional video production expertise',
+    title: 'Pizza Hut - Brand Campaign',
+    description: '', // Add description when available
     thumbnail: '/images/videos/placeholder.svg',
     videoPath: 'https://drive.google.com/file/d/1sQ5Ik9O-qzTNFHwLGB9u5vEp6VUOWr91/view?usp=drive_link',
     category: 'brand-campaign',
   },
   {
     id: '4',
-    title: 'Play Energy - Brand Campaign',
-    description: 'Energetic brand campaign video for Play Energy demonstrating our creative vision',
+    title: 'Puma - Brand Campaign',
+    description: '', // Add description when available
     thumbnail: '/images/videos/placeholder.svg',
     videoPath: 'https://drive.google.com/file/d/10kwMsRjLPCAj1DyJ-tkoE3sI7ACC3e1P/view?usp=drive_link',
     category: 'brand-campaign',
   },
   {
     id: '5',
-    title: 'Knorr Durban July Corporate Video',
-    description: 'Corporate video for Knorr Durban July event, showcasing our corporate video production capabilities',
+    title: 'Melrose Arch - Brand Campaign',
+    description: '', // Add description when available
     thumbnail: '/images/videos/placeholder.svg',
     videoPath: 'https://drive.google.com/file/d/1DglaZt0o7_KLFzPn0DOHxynRVTBcxsKZ/view?usp=drive_link',
-    category: 'corporate',
+    category: 'brand-campaign',
   },
   {
     id: '6',
-    title: 'Knorr Cook-Off Highlight Video',
-    description: 'Highlight video from the Knorr Cook-Off event, capturing the excitement and energy',
+    title: 'Play Energy - Brand Campaign',
+    description: '', // Add description when available
     thumbnail: '/images/videos/placeholder.svg',
     videoPath: 'https://drive.google.com/file/d/1DCyrBg1A4pyy8mIwm_CJLJJqhjeth3sa/view?usp=drive_link',
-    category: 'corporate',
+    category: 'brand-campaign',
   },
 ];
 
@@ -129,5 +129,7 @@ export const videos = videoData.map((video) => {
   return {
     ...video,
     videoUrl: convertedUrl,
+    // Keep original videoPath for thumbnail generation
+    originalVideoPath: video.videoPath,
   };
 });

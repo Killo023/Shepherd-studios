@@ -61,6 +61,7 @@ export default function VideoGallery({
             description={video.description}
             thumbnail={video.thumbnail}
             videoUrl={video.videoUrl}
+            originalVideoPath={(video as any).originalVideoPath}
             duration={video.duration}
             onClick={() => onVideoSelect?.(video)}
           />

@@ -10,6 +10,7 @@ interface VideoCardProps {
   description?: string;
   thumbnail: string;
   videoUrl: string;
+  originalVideoPath?: string; // Original Google Drive share link for thumbnail generation
   duration?: string;
   onClick?: () => void;
 }
@@ -19,6 +20,7 @@ export default function VideoCard({
   description,
   thumbnail,
   videoUrl,
+  originalVideoPath,
   duration,
   onClick,
 }: VideoCardProps) {
@@ -30,12 +32,35 @@ export default function VideoCard({
   // Get Google Drive thumbnail URL
   useEffect(() => {
     if (isGoogleDriveUrl(videoUrl)) {
-      const thumbUrl = getGoogleDriveThumbnailUrl(videoUrl, 1280, 720);
+      // Use originalVideoPath if available (original share link), otherwise use videoUrl
+      // The originalVideoPath contains the share link which is better for thumbnail extraction
+      const urlToUse = originalVideoPath || videoUrl;
+      const thumbUrl = getGoogleDriveThumbnailUrl(urlToUse, 1280, 720);
       if (thumbUrl) {
-        setGoogleDriveThumbnail(thumbUrl);
+        // Test if thumbnail loads using browser's native Image constructor
+        const img = new window.Image();
+        img.crossOrigin = 'anonymous';
+        img.onload = () => {
+          setGoogleDriveThumbnail(thumbUrl);
+        };
+        img.onerror = () => {
+          console.warn('Google Drive thumbnail failed to load:', thumbUrl);
+          // Try alternative thumbnail URL format
+          const fileId = urlToUse.match(/\/file\/d\/([a-zA-Z0-9_-]+)/)?.[1];
+          if (fileId) {
+            const altThumbUrl = `https://lh3.googleusercontent.com/d/${fileId}=w1280-h720`;
+            const altImg = new window.Image();
+            altImg.crossOrigin = 'anonymous';
+            altImg.onload = () => {
+              setGoogleDriveThumbnail(altThumbUrl);
+            };
+            altImg.src = altThumbUrl;
+          }
+        };
+        img.src = thumbUrl;
       }
     }
-  }, [videoUrl]);
+  }, [videoUrl, originalVideoPath]);
 
   useEffect(() => {
     const video = thumbnailVideoRef.current;
