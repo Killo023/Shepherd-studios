@@ -82,8 +82,8 @@ export default function HeroSection() {
           <source src={videoSrc} type="video/mp4" />
           Your browser does not support the video tag.
         </video>
-        {/* Subtle background overlay for text readability */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/30 to-black/40 z-[1]" />
+        {/* Subtle blue background overlay for text readability */}
+        <div className="absolute inset-0 bg-gradient-to-b from-primary/40 via-primary/30 to-primary/40 z-[1]" />
         {/* Subtle pattern overlay */}
         <div className="absolute inset-0 opacity-10" style={{
           backgroundImage: 'radial-gradient(circle at 2px 2px, white 1px, transparent 0)',
