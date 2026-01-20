@@ -2,7 +2,9 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import Image from 'next/image';
 import { Video } from './VideoGallery';
+import { isGoogleDriveUrl, getGoogleDriveThumbnailUrl } from '@/lib/videos';
 
 interface VideoModalProps {
   video: Video | null;
@@ -14,8 +16,21 @@ export default function VideoModal({ video, isOpen, onClose }: VideoModalProps) 
   const [isPlaying, setIsPlaying] = useState(false);
   const [hasError, setHasError] = useState(false);
   const [showThumbnail, setShowThumbnail] = useState(false);
+  const [googleDriveThumbnail, setGoogleDriveThumbnail] = useState<string | null>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const thumbnailVideoRef = useRef<HTMLVideoElement>(null);
+
+  // Get Google Drive thumbnail URL
+  useEffect(() => {
+    if (video && isGoogleDriveUrl(video.videoUrl)) {
+      const thumbUrl = getGoogleDriveThumbnailUrl(video.videoUrl, 1920, 1080);
+      if (thumbUrl) {
+        setGoogleDriveThumbnail(thumbUrl);
+      }
+    } else {
+      setGoogleDriveThumbnail(null);
+    }
+  }, [video]);
 
   // Reset video state when modal opens/closes or video changes
   useEffect(() => {
@@ -37,16 +52,21 @@ export default function VideoModal({ video, isOpen, onClose }: VideoModalProps) 
     }
   }, [isOpen, video]);
 
-  // Load thumbnail from video
+  // Load thumbnail from video (skip for Google Drive videos)
   useEffect(() => {
-    const video = thumbnailVideoRef.current;
-    if (!video || !isOpen || isPlaying) return;
+    const videoElement = thumbnailVideoRef.current;
+    if (!videoElement || !isOpen || isPlaying || !video) return;
+    
+    // Skip thumbnail generation for Google Drive videos
+    if (isGoogleDriveUrl(video.videoUrl)) {
+      return;
+    }
 
     const handleLoadedData = () => {
-      if (video.duration > 1) {
-        video.currentTime = 1;
-      } else if (video.duration > 0) {
-        video.currentTime = video.duration * 0.1;
+      if (videoElement.duration > 1) {
+        videoElement.currentTime = 1;
+      } else if (videoElement.duration > 0) {
+        videoElement.currentTime = videoElement.duration * 0.1;
       }
     };
 
@@ -54,12 +74,12 @@ export default function VideoModal({ video, isOpen, onClose }: VideoModalProps) 
       setShowThumbnail(true);
     };
 
-    video.addEventListener('loadedmetadata', handleLoadedData);
-    video.addEventListener('seeked', handleSeeked);
+    videoElement.addEventListener('loadedmetadata', handleLoadedData);
+    videoElement.addEventListener('seeked', handleSeeked);
 
     return () => {
-      video.removeEventListener('loadedmetadata', handleLoadedData);
-      video.removeEventListener('seeked', handleSeeked);
+      videoElement.removeEventListener('loadedmetadata', handleLoadedData);
+      videoElement.removeEventListener('seeked', handleSeeked);
     };
   }, [isOpen, video, isPlaying]);
 
@@ -101,6 +121,22 @@ export default function VideoModal({ video, isOpen, onClose }: VideoModalProps) 
   };
 
   if (!video) return null;
+
+  // Debug: Log video URL
+  if (process.env.NODE_ENV === 'development') {
+    console.log('VideoModal - Video:', {
+      id: video.id,
+      title: video.title,
+      videoUrl: video.videoUrl,
+      isGoogleDrive: isGoogleDriveUrl(video.videoUrl),
+    });
+  }
+
+  // Ensure we have a valid video URL
+  if (!video.videoUrl || video.videoUrl.startsWith('/videos/')) {
+    console.error('Invalid video URL detected:', video.videoUrl);
+    setHasError(true);
+  }
 
   const encodedVideoUrl = encodeURI(video.videoUrl);
 
@@ -147,7 +183,17 @@ export default function VideoModal({ video, isOpen, onClose }: VideoModalProps) 
 
               {/* Video Container */}
               <div className="relative aspect-video bg-gray-900">
-                {!isPlaying ? (
+                {isGoogleDriveUrl(encodedVideoUrl) ? (
+                  // Use iframe for Google Drive videos (show immediately)
+                  <iframe
+                    src={encodedVideoUrl}
+                    className="w-full h-full"
+                    allow="autoplay; encrypted-media"
+                    allowFullScreen
+                    style={{ border: 'none' }}
+                    title={video.title}
+                  />
+                ) : !isPlaying ? (
                   <div className="relative w-full h-full">
                     {showThumbnail ? (
                       <video

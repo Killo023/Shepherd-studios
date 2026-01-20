@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { useState, useRef, useEffect } from 'react';
+import { isGoogleDriveUrl, getGoogleDriveThumbnailUrl } from '@/lib/videos';
 
 interface VideoCardProps {
   title: string;
@@ -23,11 +24,27 @@ export default function VideoCard({
 }: VideoCardProps) {
   const [isHovered, setIsHovered] = useState(false);
   const [showVideoThumbnail, setShowVideoThumbnail] = useState(false);
+  const [googleDriveThumbnail, setGoogleDriveThumbnail] = useState<string | null>(null);
   const thumbnailVideoRef = useRef<HTMLVideoElement>(null);
+
+  // Get Google Drive thumbnail URL
+  useEffect(() => {
+    if (isGoogleDriveUrl(videoUrl)) {
+      const thumbUrl = getGoogleDriveThumbnailUrl(videoUrl, 1280, 720);
+      if (thumbUrl) {
+        setGoogleDriveThumbnail(thumbUrl);
+      }
+    }
+  }, [videoUrl]);
 
   useEffect(() => {
     const video = thumbnailVideoRef.current;
-    if (!video) return;
+    if (!video || !videoUrl) return;
+    
+    // Skip thumbnail generation for Google Drive videos
+    if (isGoogleDriveUrl(videoUrl)) {
+      return;
+    }
 
     const handleLoadedData = () => {
       // Seek to 1 second to get a good frame
@@ -64,7 +81,7 @@ export default function VideoCard({
     >
       {/* Thumbnail */}
       <div className="relative aspect-video overflow-hidden bg-gray-900">
-        {showVideoThumbnail ? (
+        {!isGoogleDriveUrl(videoUrl) && showVideoThumbnail ? (
           <video
             ref={thumbnailVideoRef}
             src={videoUrl}
@@ -75,6 +92,20 @@ export default function VideoCard({
             playsInline
             preload="metadata"
             style={{ pointerEvents: 'none' }}
+          />
+        ) : isGoogleDriveUrl(videoUrl) && googleDriveThumbnail ? (
+          <Image
+            src={googleDriveThumbnail}
+            alt={title}
+            fill
+            className={`object-cover transition-transform duration-300 ${
+              isHovered ? 'scale-110' : 'scale-100'
+            }`}
+            unoptimized
+            onError={() => {
+              // Fallback if thumbnail fails to load
+              setGoogleDriveThumbnail(null);
+            }}
           />
         ) : thumbnail && thumbnail !== '/images/videos/placeholder.svg' ? (
           <Image
@@ -88,14 +119,16 @@ export default function VideoCard({
           />
         ) : (
           <>
-            <video
-              ref={thumbnailVideoRef}
-              src={videoUrl}
-              className="hidden"
-              muted
-              playsInline
-              preload="metadata"
-            />
+            {!isGoogleDriveUrl(videoUrl) && (
+              <video
+                ref={thumbnailVideoRef}
+                src={videoUrl}
+                className="hidden"
+                muted
+                playsInline
+                preload="metadata"
+              />
+            )}
             <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-gray-700 to-gray-900 text-white text-2xl font-bold">
               {title.charAt(0)}
             </div>
