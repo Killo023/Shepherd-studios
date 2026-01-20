@@ -1,98 +1,34 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { useEffect, useRef, useState } from 'react';
 
 export default function HeroSection() {
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const [useIframe, setUseIframe] = useState(false);
-  
   // Google Drive video URL
   // File ID: 1wyylgPnYgUe-oXHvxj7CUJAwLWjSlBZL
-  // Try direct download URL for HTML5 video (supports autoplay/loop)
-  const googleDriveDirectUrl = 'https://drive.google.com/uc?export=download&id=1wyylgPnYgUe-oXHvxj7CUJAwLWjSlBZL';
+  // Using iframe - HTML5 video blocked by CORS from Google Drive
   const googleDrivePreviewUrl = 'https://drive.google.com/file/d/1wyylgPnYgUe-oXHvxj7CUJAwLWjSlBZL/preview';
-  
-  useEffect(() => {
-    const video = videoRef.current;
-    if (video && !useIframe) {
-      // Ensure video plays and loops
-      const ensurePlayback = () => {
-        if (video.readyState >= 2) { // HAVE_CURRENT_DATA
-          video.play().catch((error) => {
-            console.warn('Video autoplay failed:', error);
-            // Fallback to iframe if autoplay fails
-            setUseIframe(true);
-          });
-        }
-      };
-      
-      video.addEventListener('loadeddata', ensurePlayback);
-      video.addEventListener('canplay', ensurePlayback);
-      video.addEventListener('canplaythrough', ensurePlayback);
-      
-      // Try playing immediately
-      ensurePlayback();
-      
-      return () => {
-        video.removeEventListener('loadeddata', ensurePlayback);
-        video.removeEventListener('canplay', ensurePlayback);
-        video.removeEventListener('canplaythrough', ensurePlayback);
-      };
-    }
-  }, [useIframe]);
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Background Video */}
+      {/* Background Video - Google Drive iframe */}
       <div className="absolute inset-0 z-0 overflow-hidden">
-        {useIframe ? (
-          // Fallback to iframe if HTML5 video fails
-          <iframe
-            src={googleDrivePreviewUrl}
-            className="absolute inset-0 w-full h-full z-0"
-            style={{ 
-              border: 'none',
-              width: '100vw',
-              height: '100vh',
-              position: 'absolute',
-              top: 0,
-              left: 0,
-              zIndex: 0
-            }}
-            allow="autoplay; encrypted-media; fullscreen"
-            allowFullScreen={false}
-            title="Hero background video"
-            scrolling="no"
-          />
-        ) : (
-          // HTML5 video - supports autoplay and loop
-          <video
-            ref={videoRef}
-            autoPlay
-            loop
-            muted
-            playsInline
-            preload="auto"
-            className="absolute inset-0 w-full h-full object-cover z-0"
-            style={{ pointerEvents: 'none' }}
-            onError={(e) => {
-              console.error('HTML5 video failed, switching to iframe');
-              setUseIframe(true);
-            }}
-            onLoadedData={() => {
-              console.log('Hero video loaded - autoplay and loop enabled');
-              videoRef.current?.play().catch(() => setUseIframe(true));
-            }}
-            onEnded={() => {
-              // Ensure video loops
-              videoRef.current?.play().catch(() => setUseIframe(true));
-            }}
-          >
-            <source src={googleDriveDirectUrl} type="video/mp4" />
-            Your browser does not support the video tag.
-          </video>
-        )}
+        <iframe
+          src={googleDrivePreviewUrl}
+          className="absolute inset-0 w-full h-full z-0"
+          style={{ 
+            border: 'none',
+            width: '100%',
+            height: '100%',
+            minHeight: '100vh',
+            position: 'absolute',
+            top: 0,
+            left: 0
+          }}
+          allow="autoplay; encrypted-media; fullscreen"
+          allowFullScreen={false}
+          title="Hero background video"
+          scrolling="no"
+        />
         {/* Subtle background overlay for text readability */}
         <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/30 to-black/40 z-[1]" />
         {/* Subtle pattern overlay */}
