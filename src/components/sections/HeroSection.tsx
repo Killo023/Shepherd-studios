@@ -4,50 +4,10 @@ import { motion } from 'framer-motion';
 import { useEffect, useRef, useState } from 'react';
 
 export default function HeroSection() {
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const [videoError, setVideoError] = useState(false);
-  
   // Google Drive video URL - HTML5 video doesn't work due to CORS, so we use iframe
   // File ID: 1wyylgPnYgUe-oXHvxj7CUJAwLWjSlBZL
-  // Using preview URL with autoplay parameters
-  const googleDrivePreviewUrl = 'https://drive.google.com/file/d/1wyylgPnYgUe-oXHvxj7CUJAwLWjSlBZL/preview?autoplay=1&loop=1';
-
-  useEffect(() => {
-    const video = videoRef.current;
-    if (video) {
-      // Ensure video loads and plays
-      const handleCanPlay = () => {
-        const playPromise = video.play();
-        if (playPromise !== undefined) {
-          playPromise.catch((error) => {
-            console.warn('Video autoplay prevented:', error);
-            // Auto-play was prevented, try again on user interaction
-            const handleInteraction = () => {
-              video.play().catch(console.error);
-              document.removeEventListener('touchstart', handleInteraction);
-              document.removeEventListener('click', handleInteraction);
-            };
-            document.addEventListener('touchstart', handleInteraction, { once: true });
-            document.addEventListener('click', handleInteraction, { once: true });
-          });
-        }
-      };
-
-      video.addEventListener('canplay', handleCanPlay);
-      
-      // Also try to play immediately
-      const playPromise = video.play();
-      if (playPromise !== undefined) {
-        playPromise.catch(() => {
-          // Will be handled by canplay listener
-        });
-      }
-
-      return () => {
-        video.removeEventListener('canplay', handleCanPlay);
-      };
-    }
-  }, []);
+  // Using preview URL - Google Drive handles autoplay via iframe
+  const googleDrivePreviewUrl = 'https://drive.google.com/file/d/1wyylgPnYgUe-oXHvxj7CUJAwLWjSlBZL/preview';
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
