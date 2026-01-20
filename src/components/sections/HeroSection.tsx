@@ -6,10 +6,8 @@ import { useEffect, useRef } from 'react';
 export default function HeroSection() {
   const videoRef = useRef<HTMLVideoElement>(null);
   
-  // Google Drive video URL
-  // File ID: 1wyylgPnYgUe-oXHvxj7CUJAwLWjSlBZL
-  // Try direct download URL for HTML5 video (supports autoplay/loop)
-  const googleDriveDirectUrl = 'https://drive.google.com/uc?export=download&id=1wyylgPnYgUe-oXHvxj7CUJAwLWjSlBZL';
+  // Use local video file
+  const videoSrc = '/videos/hero-background.mp4';
   
   useEffect(() => {
     const video = videoRef.current;
@@ -82,7 +80,7 @@ export default function HeroSection() {
             }
           }}
         >
-          <source src={googleDriveDirectUrl} type="video/mp4" />
+          <source src={videoSrc} type="video/mp4" />
           Your browser does not support the video tag.
         </video>
         {/* Subtle background overlay for text readability */}
