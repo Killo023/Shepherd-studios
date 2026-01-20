@@ -7,8 +7,9 @@ export default function HeroSection() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [videoError, setVideoError] = useState(false);
   
-  // Use local video file
-  const videoSrc = '/videos/hero-background.mp4';
+  // Use Google Drive video URL
+  // File ID: 1wyylgPnYgUe-oXHvxj7CUJAwLWjSlBZL
+  const videoSrc = 'https://drive.google.com/uc?export=download&id=1wyylgPnYgUe-oXHvxj7CUJAwLWjSlBZL';
 
   useEffect(() => {
     const video = videoRef.current;
