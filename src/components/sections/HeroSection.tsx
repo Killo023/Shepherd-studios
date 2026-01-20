@@ -6,10 +6,14 @@ import { useEffect, useRef, useState } from 'react';
 export default function HeroSection() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [videoError, setVideoError] = useState(false);
+  const [useIframe, setUseIframe] = useState(false);
   
-  // Use Google Drive video URL
+  // Google Drive video URL - HTML5 video doesn't work due to CORS
   // File ID: 1wyylgPnYgUe-oXHvxj7CUJAwLWjSlBZL
-  // Try direct download URL with confirm parameter (sometimes bypasses CORS)
+  // Using preview URL for iframe fallback
+  const googleDrivePreviewUrl = 'https://drive.google.com/file/d/1wyylgPnYgUe-oXHvxj7CUJAwLWjSlBZL/preview';
+  
+  // Try direct download URL first (may work in some browsers)
   const [videoSrc, setVideoSrc] = useState('https://drive.google.com/uc?export=download&id=1wyylgPnYgUe-oXHvxj7CUJAwLWjSlBZL&confirm=t');
 
   useEffect(() => {
@@ -53,48 +57,61 @@ export default function HeroSection() {
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Background Video */}
       <div className="absolute inset-0 z-0">
-        <video
-          ref={videoRef}
-          autoPlay
-          loop
-          muted
-          playsInline
-          preload="auto"
-          disablePictureInPicture
-          controlsList="nodownload nofullscreen noremoteplayback"
-          className="absolute inset-0 w-full h-full object-cover z-0"
-          style={{ pointerEvents: 'none' }}
-          onError={(e) => {
-            const videoElement = e.target as HTMLVideoElement;
-            console.error('Hero video failed to load:', videoSrc);
-            console.error('Error code:', videoElement.error?.code, 'Message:', videoElement.error?.message);
-            
-            // Try alternative URL formats
-            if (videoSrc.includes('export=download')) {
-              console.log('Trying alternative URL format: export=view');
-              setVideoSrc('https://drive.google.com/uc?export=view&id=1wyylgPnYgUe-oXHvxj7CUJAwLWjSlBZL');
-            } else if (videoSrc.includes('export=view')) {
-              console.log('Trying alternative URL format: file/d/preview');
-              setVideoSrc('https://drive.google.com/file/d/1wyylgPnYgUe-oXHvxj7CUJAwLWjSlBZL/preview');
-            } else {
-              console.error('All Google Drive URL formats failed');
+        {useIframe ? (
+          // Fallback to iframe if HTML5 video fails (Google Drive limitation)
+          <iframe
+            src={googleDrivePreviewUrl}
+            className="absolute inset-0 w-full h-full object-cover z-0"
+            style={{ 
+              pointerEvents: 'none',
+              border: 'none',
+              transform: 'scale(1.1)', // Scale to hide iframe borders
+              width: '110%',
+              height: '110%',
+              margin: '-5%'
+            }}
+            allow="autoplay; encrypted-media"
+            allowFullScreen={false}
+            title="Hero background video"
+          />
+        ) : (
+          <video
+            ref={videoRef}
+            autoPlay
+            loop
+            muted
+            playsInline
+            preload="auto"
+            disablePictureInPicture
+            controlsList="nodownload nofullscreen noremoteplayback"
+            className="absolute inset-0 w-full h-full object-cover z-0"
+            style={{ pointerEvents: 'none' }}
+            onError={(e) => {
+              const videoElement = e.target as HTMLVideoElement;
+              console.error('Hero video failed to load:', videoSrc);
+              console.error('Error code:', videoElement.error?.code, 'Message:', videoElement.error?.message);
+              
+              // Google Drive URLs don't work with HTML5 video due to CORS
+              // Fallback to iframe
+              console.warn('HTML5 video failed, switching to iframe fallback');
+              setUseIframe(true);
               setVideoError(true);
-            }
-          }}
-          onLoadedData={() => {
-            console.log('Hero video loaded successfully');
-            setVideoError(false);
-            // Ensure video plays after loading
-            videoRef.current?.play().catch(console.warn);
-          }}
-          onCanPlay={() => {
-            console.log('Hero video can play');
-            videoRef.current?.play().catch(console.warn);
-          }}
-        >
-          <source src={videoSrc} type="video/mp4" />
-          Your browser does not support the video tag.
-        </video>
+            }}
+            onLoadedData={() => {
+              console.log('Hero video loaded successfully');
+              setVideoError(false);
+              // Ensure video plays after loading
+              videoRef.current?.play().catch(console.warn);
+            }}
+            onCanPlay={() => {
+              console.log('Hero video can play');
+              videoRef.current?.play().catch(console.warn);
+            }}
+          >
+            <source src={videoSrc} type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+        )}
         {/* Gradient Overlay - subtle overlay for text readability, positioned above video but below content */}
         <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-black/30 z-[1]" />
         {/* Subtle pattern overlay */}
