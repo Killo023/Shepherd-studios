@@ -13,20 +13,37 @@ export default function HeroSection() {
   useEffect(() => {
     const video = videoRef.current;
     if (video) {
-      // Force play on mobile devices
+      // Ensure video loads and plays
+      const handleCanPlay = () => {
+        const playPromise = video.play();
+        if (playPromise !== undefined) {
+          playPromise.catch((error) => {
+            console.warn('Video autoplay prevented:', error);
+            // Auto-play was prevented, try again on user interaction
+            const handleInteraction = () => {
+              video.play().catch(console.error);
+              document.removeEventListener('touchstart', handleInteraction);
+              document.removeEventListener('click', handleInteraction);
+            };
+            document.addEventListener('touchstart', handleInteraction, { once: true });
+            document.addEventListener('click', handleInteraction, { once: true });
+          });
+        }
+      };
+
+      video.addEventListener('canplay', handleCanPlay);
+      
+      // Also try to play immediately
       const playPromise = video.play();
       if (playPromise !== undefined) {
         playPromise.catch(() => {
-          // Auto-play was prevented, try again on user interaction
-          const handleInteraction = () => {
-            video.play();
-            document.removeEventListener('touchstart', handleInteraction);
-            document.removeEventListener('click', handleInteraction);
-          };
-          document.addEventListener('touchstart', handleInteraction, { once: true });
-          document.addEventListener('click', handleInteraction, { once: true });
+          // Will be handled by canplay listener
         });
       }
+
+      return () => {
+        video.removeEventListener('canplay', handleCanPlay);
+      };
     }
   }, []);
 
@@ -43,25 +60,33 @@ export default function HeroSection() {
           preload="auto"
           disablePictureInPicture
           controlsList="nodownload nofullscreen noremoteplayback"
-          className="absolute inset-0 w-full h-full object-cover"
+          className="absolute inset-0 w-full h-full object-cover z-0"
           style={{ pointerEvents: 'none' }}
           onError={(e) => {
             console.error('Hero video failed to load:', videoSrc, e);
+            console.error('Video error details:', {
+              error: e,
+              videoSrc,
+              videoElement: videoRef.current
+            });
             setVideoError(true);
           }}
           onLoadedData={() => {
             console.log('Hero video loaded successfully');
             setVideoError(false);
+            // Ensure video plays after loading
+            videoRef.current?.play().catch(console.warn);
+          }}
+          onCanPlay={() => {
+            console.log('Hero video can play');
+            videoRef.current?.play().catch(console.warn);
           }}
         >
           <source src={videoSrc} type="video/mp4" />
           Your browser does not support the video tag.
         </video>
-        {videoError && (
-          <div className="absolute inset-0 bg-gradient-to-b from-primary/70 via-primary/60 to-primary/70" />
-        )}
-            {/* Gradient Overlay */}
-            <div className="absolute inset-0 bg-gradient-to-b from-primary/70 via-primary/60 to-primary/70" />
+        {/* Gradient Overlay - positioned above video but below content */}
+        <div className="absolute inset-0 bg-gradient-to-b from-primary/70 via-primary/60 to-primary/70 z-[1]" />
         {/* Subtle pattern overlay */}
         <div className="absolute inset-0 opacity-10" style={{
           backgroundImage: 'radial-gradient(circle at 2px 2px, white 1px, transparent 0)',
