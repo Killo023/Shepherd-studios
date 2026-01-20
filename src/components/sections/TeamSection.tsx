@@ -34,7 +34,7 @@ export default function TeamSection() {
             {/* Logo */}
             <div className="mb-12">
               <Image
-                src="/images/logo/shepherd-studios-logo-transparent.png"
+                src="/images/logo/Shepherds Logo-01.png"
                 alt="Shepherd Studios Logo"
                 width={400}
                 height={150}

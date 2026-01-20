@@ -13,7 +13,7 @@ export default function Footer() {
           <div className="col-span-1 md:col-span-2">
             <div className="mb-6 py-4">
               <Image
-                src="/images/logo/shepherd-studios-logo-transparent.png"
+                src="/images/logo/Shepherds Logo-01.png"
                 alt="Shepherd Studios"
                 width={270}
                 height={102}

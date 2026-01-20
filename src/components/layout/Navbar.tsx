@@ -37,7 +37,7 @@ export default function Navbar() {
           {/* Logo */}
               <Link href="/" className="flex items-center px-6 md:px-8 lg:px-10">
                 <Image
-                  src="/images/logo/shepherd-studios-logo-transparent.png"
+                  src="/images/logo/Shepherds Logo-01.png"
                   alt="Shepherd Studios"
                   width={270}
                   height={102}

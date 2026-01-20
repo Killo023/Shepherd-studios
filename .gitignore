@@ -38,6 +38,8 @@ next-env.d.ts
 media/Videos/
 media/Logo/*.mov
 media/Logo/*.mp4
-*.mp4
-*.mov
-public/videos/*.mp4
+# Temporarily allowing videos for Vercel deployment
+# Uncomment the lines below to exclude videos again after deployment
+# *.mp4
+# *.mov
+# public/videos/*.mp4
