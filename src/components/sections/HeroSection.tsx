@@ -4,10 +4,43 @@ import { motion } from 'framer-motion';
 import { useEffect, useRef, useState } from 'react';
 
 export default function HeroSection() {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [useIframe, setUseIframe] = useState(false);
+  
   // Google Drive video URL
   // File ID: 1wyylgPnYgUe-oXHvxj7CUJAwLWjSlBZL
-  // Using iframe directly - HTML5 video blocked by CORS
+  // Try direct download URL for HTML5 video (supports autoplay/loop)
+  const googleDriveDirectUrl = 'https://drive.google.com/uc?export=download&id=1wyylgPnYgUe-oXHvxj7CUJAwLWjSlBZL';
   const googleDrivePreviewUrl = 'https://drive.google.com/file/d/1wyylgPnYgUe-oXHvxj7CUJAwLWjSlBZL/preview';
+  
+  useEffect(() => {
+    const video = videoRef.current;
+    if (video && !useIframe) {
+      // Ensure video plays and loops
+      const ensurePlayback = () => {
+        if (video.readyState >= 2) { // HAVE_CURRENT_DATA
+          video.play().catch((error) => {
+            console.warn('Video autoplay failed:', error);
+            // Fallback to iframe if autoplay fails
+            setUseIframe(true);
+          });
+        }
+      };
+      
+      video.addEventListener('loadeddata', ensurePlayback);
+      video.addEventListener('canplay', ensurePlayback);
+      video.addEventListener('canplaythrough', ensurePlayback);
+      
+      // Try playing immediately
+      ensurePlayback();
+      
+      return () => {
+        video.removeEventListener('loadeddata', ensurePlayback);
+        video.removeEventListener('canplay', ensurePlayback);
+        video.removeEventListener('canplaythrough', ensurePlayback);
+      };
+    }
+  }, [useIframe]);
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
