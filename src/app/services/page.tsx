@@ -39,7 +39,7 @@ const services = [
 
 export default function ServicesPage() {
   return (
-    <div className="pt-20">
+    <div className="pt-32">
       {/* Hero Section */}
       <section className="relative py-24 bg-gradient-to-b from-white to-gray-50 overflow-hidden">
         {/* Background Image */}

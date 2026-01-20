@@ -44,7 +44,7 @@ export default function Navbar() {
                   className={`h-16 md:h-20 lg:h-[94px] w-auto transition-all duration-300 ${
                     scrolled || shouldUseWhiteNavbar
                       ? '' 
-                      : 'brightness-0 invert drop-shadow-[0_2px_8px_rgba(255,255,255,0.9)]'
+                      : 'brightness-0 invert drop-shadow-[0_2px_4px_rgba(255,255,255,0.5)]'
                   }`}
                   priority
                 />

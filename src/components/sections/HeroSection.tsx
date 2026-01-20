@@ -65,25 +65,13 @@ export default function HeroSection() {
             transition={{ duration: 0.8 }}
             className="text-white"
           >
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              className="mb-6"
-            >
-              <span className="text-lg md:text-xl font-medium text-white/90 uppercase tracking-wider">
-                Welcome to
-              </span>
-            </motion.div>
-            
             <motion.h1
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.3 }}
               className="text-5xl md:text-7xl lg:text-8xl font-bold mb-6 leading-tight"
             >
-              Shepherd{' '}
-              <span className="text-white/90">Studios</span>
+              Clarity Through Motion & Film
             </motion.h1>
             
             <motion.p
@@ -92,8 +80,8 @@ export default function HeroSection() {
               transition={{ duration: 0.8, delay: 0.4 }}
               className="text-xl md:text-2xl text-white/90 mb-8 leading-relaxed"
             >
-              Creating exceptional digital experiences with cutting-edge technology
-              and innovative design
+              We create high-quality video and motion design for brands, systems, and
+              stories.
             </motion.p>
             
             <motion.div

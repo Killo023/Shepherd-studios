@@ -33,3 +33,11 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# large video files - videos should be hosted externally (CDN/cloud storage)
+media/Videos/
+media/Logo/*.mov
+media/Logo/*.mp4
+*.mp4
+*.mov
+public/videos/*.mp4

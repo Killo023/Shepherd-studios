@@ -1,11 +1,43 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import TeamSection from '@/components/sections/TeamSection';
+import Image from 'next/image';
 
 export default function AboutPage() {
   return (
     <div className="pt-20">
+      {/* Hero Section with Background */}
+      <section className="relative py-20 bg-gradient-to-b from-gray-50 to-white overflow-hidden">
+        {/* Background Image */}
+        <div className="absolute inset-0 z-0">
+          <Image
+            src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=1920&q=80"
+            alt="Background"
+            fill
+            className="object-cover opacity-20"
+            unoptimized
+            priority
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-white/70 via-white/50 to-white/70" />
+        </div>
+        
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="text-center mb-12"
+          >
+            <h1 className="text-5xl md:text-7xl font-bold mb-6 text-primary">
+              About Us
+            </h1>
+            <p className="text-xl text-lightBlue max-w-3xl mx-auto">
+              Learn more about Shepherd Studios and our mission to bring stories to life
+            </p>
+          </motion.div>
+        </div>
+      </section>
+
       {/* Main About Section - Matching PDF Design */}
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -112,8 +144,64 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Meet the Team Section */}
-      <TeamSection />
+      {/* Our Story Section */}
+      <section className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+            {/* Left: Image */}
+            <motion.div
+              initial={{ opacity: 0, x: -50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+              className="relative w-full h-[400px] lg:h-[500px] rounded-lg overflow-hidden"
+            >
+              <Image
+                src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800&q=80"
+                alt="Grass and grazing landscape"
+                fill
+                className="object-cover"
+                unoptimized
+              />
+            </motion.div>
+
+            {/* Right: Our Story Content */}
+            <motion.div
+              initial={{ opacity: 0, x: 50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="space-y-6"
+            >
+              <h2 className="text-4xl md:text-5xl font-bold text-primary mb-6">
+                Our Story
+              </h2>
+              <div className="space-y-4 text-lightBlue text-lg leading-relaxed">
+                <p>
+                  Shepherd Studios was born from a passion for bringing stories to life through motion and film. 
+                  We recognized that in today&apos;s fast-paced digital world, static visuals often get lost in the noise, 
+                  while motion graphics and video content have the power to capture attention and create lasting impressions.
+                </p>
+                <p>
+                  Our journey began with a simple belief: that every brand, system, and story deserves clarity through 
+                  exceptional visual communication. We specialize in creating high-quality video and motion design that 
+                  helps businesses stand out and connect with their audiences in meaningful ways.
+                </p>
+                <p>
+                  What sets us apart is our commitment to quality and our understanding that motion ads capture and retain 
+                  attention better than static visuals. We don&apos;t just create content—we craft experiences that resonate, 
+                  inspire, and drive results.
+                </p>
+                <p>
+                  Today, Shepherd Studios continues to push the boundaries of motion design, working with brands across 
+                  various industries to bring their visions to life. We&apos;re not just a studio—we&apos;re storytellers, 
+                  innovators, and partners in your creative journey.
+                </p>
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
 
       {/* Values Section */}
       <section className="py-20 bg-white">

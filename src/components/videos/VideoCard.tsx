@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion';
 import Image from 'next/image';
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 
 interface VideoCardProps {
   title: string;
@@ -22,6 +22,34 @@ export default function VideoCard({
   onClick,
 }: VideoCardProps) {
   const [isHovered, setIsHovered] = useState(false);
+  const [showVideoThumbnail, setShowVideoThumbnail] = useState(false);
+  const thumbnailVideoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const video = thumbnailVideoRef.current;
+    if (!video) return;
+
+    const handleLoadedData = () => {
+      // Seek to 1 second to get a good frame
+      if (video.duration > 1) {
+        video.currentTime = 1;
+      } else if (video.duration > 0) {
+        video.currentTime = video.duration * 0.1;
+      }
+    };
+
+    const handleSeeked = () => {
+      setShowVideoThumbnail(true);
+    };
+
+    video.addEventListener('loadedmetadata', handleLoadedData);
+    video.addEventListener('seeked', handleSeeked);
+
+    return () => {
+      video.removeEventListener('loadedmetadata', handleLoadedData);
+      video.removeEventListener('seeked', handleSeeked);
+    };
+  }, [videoUrl]);
 
   return (
     <motion.div
@@ -36,7 +64,19 @@ export default function VideoCard({
     >
       {/* Thumbnail */}
       <div className="relative aspect-video overflow-hidden bg-gray-900">
-        {thumbnail.startsWith('/') || thumbnail.startsWith('http') ? (
+        {showVideoThumbnail ? (
+          <video
+            ref={thumbnailVideoRef}
+            src={videoUrl}
+            className={`object-cover w-full h-full transition-transform duration-300 ${
+              isHovered ? 'scale-110' : 'scale-100'
+            }`}
+            muted
+            playsInline
+            preload="metadata"
+            style={{ pointerEvents: 'none' }}
+          />
+        ) : thumbnail && thumbnail !== '/images/videos/placeholder.svg' ? (
           <Image
             src={thumbnail}
             alt={title}
@@ -47,9 +87,19 @@ export default function VideoCard({
             unoptimized
           />
         ) : (
-          <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-gray-700 to-gray-900 text-white text-2xl font-bold">
-            {title.charAt(0)}
-          </div>
+          <>
+            <video
+              ref={thumbnailVideoRef}
+              src={videoUrl}
+              className="hidden"
+              muted
+              playsInline
+              preload="metadata"
+            />
+            <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-gray-700 to-gray-900 text-white text-2xl font-bold">
+              {title.charAt(0)}
+            </div>
+          </>
         )}
         
         {/* Play Button Overlay */}

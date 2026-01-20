@@ -58,12 +58,13 @@ export default function ProcessSection() {
         className="relative w-full max-w-2xl flex-shrink-0"
       >
         {/* Circular Container */}
-        <div className="relative w-full aspect-square max-w-[500px] mx-auto">
+        <div className="relative w-full aspect-square max-w-[500px] mx-auto min-h-[500px]">
           {/* Circular Path Line */}
           <svg
             className="absolute inset-0 w-full h-full"
             viewBox="0 0 400 400"
             xmlns="http://www.w3.org/2000/svg"
+            preserveAspectRatio="xMidYMid meet"
           >
             <circle
               cx={centerX}
@@ -75,71 +76,53 @@ export default function ProcessSection() {
             />
           </svg>
 
-          {/* Process Steps */}
+          {/* Process Steps with Labels */}
           {processSteps.map((step, index) => {
             // Calculate position on circle
             const angleRad = (step.angle * Math.PI) / 180;
             const x = centerX + radius * Math.cos(angleRad);
             const y = centerY + radius * Math.sin(angleRad);
 
-            // Label positioning
-            let labelClasses = '';
-            if (step.position === 'top') {
-              labelClasses = 'top-16 left-1/2 -translate-x-1/2';
-            } else if (step.position === 'right') {
-              labelClasses = 'right-16 top-1/2 -translate-y-1/2';
-            } else if (step.position === 'bottom') {
-              labelClasses = 'bottom-16 left-1/2 -translate-x-1/2';
-            }
+            // Calculate label offset position (closer to circle)
+            const labelRadius = radius + (step.position === 'top' ? 50 : 60);
+            const labelX = centerX + labelRadius * Math.cos(angleRad);
+            const labelY = centerY + labelRadius * Math.sin(angleRad);
 
             return (
-              <motion.div
-                key={step.number}
-                initial={{ opacity: 0, scale: 0.5 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: 0.3 + index * 0.2 }}
-                className="absolute"
-                style={{
-                  left: `${(x / 400) * 100}%`,
-                  top: `${(y / 400) * 100}%`,
-                  transform: 'translate(-50%, -50%)',
-                }}
-              >
+              <div key={step.number} className="absolute inset-0">
                 {/* Step Circle */}
-                <div
-                  className={`w-20 h-20 md:w-24 md:h-24 ${step.bgColor} rounded-full flex items-center justify-center ${step.textColor} font-bold text-lg md:text-xl shadow-lg border-2 border-white`}
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.5 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: 0.3 + index * 0.2 }}
+                  className="absolute"
+                  style={{
+                    left: `${(x / 400) * 100}%`,
+                    top: `${(y / 400) * 100}%`,
+                    transform: 'translate(-50%, -50%)',
+                  }}
                 >
-                  {step.number}
+                  <div
+                    className={`w-20 h-20 md:w-24 md:h-24 ${step.bgColor} rounded-full flex items-center justify-center ${step.textColor} font-bold text-lg md:text-xl shadow-lg border-2 border-white z-10`}
+                  >
+                    {step.number}
+                  </div>
+                </motion.div>
+
+                {/* Step Label */}
+                <div
+                  className="absolute"
+                  style={{
+                    left: `${(labelX / 400) * 100}%`,
+                    top: `${(labelY / 400) * 100}%`,
+                    transform: 'translate(-50%, -50%)',
+                  }}
+                >
+                  <p className="text-primary font-semibold text-sm md:text-base text-center whitespace-nowrap bg-white/80 px-3 py-1 rounded-md">
+                    {step.title}
+                  </p>
                 </div>
-              </motion.div>
-            );
-          })}
-
-          {/* Step Labels - Positioned separately for better visibility */}
-          {processSteps.map((step, index) => {
-            let labelClasses = '';
-            let labelTextAlign = 'text-center';
-
-            if (step.position === 'top') {
-              labelClasses = 'top-20 left-1/2 -translate-x-1/2';
-              labelTextAlign = 'text-center';
-            } else if (step.position === 'right') {
-              labelClasses = 'right-20 top-1/2 -translate-y-1/2';
-              labelTextAlign = 'text-right';
-            } else if (step.position === 'bottom') {
-              labelClasses = 'bottom-20 left-1/2 -translate-x-1/2';
-              labelTextAlign = 'text-center';
-            }
-
-            return (
-              <div
-                key={`label-${step.number}`}
-                className={`absolute ${labelClasses}`}
-              >
-                <p className={`text-primary font-semibold text-sm md:text-base ${labelTextAlign} whitespace-nowrap`}>
-                  {step.title}
-                </p>
               </div>
             );
           })}
