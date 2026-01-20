@@ -43,3 +43,5 @@ media/Logo/*.mp4
 # *.mp4
 # *.mov
 # public/videos/*.mp4
+# Allow hero background video for hero section
+!public/videos/hero-background.mp4
