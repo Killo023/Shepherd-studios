@@ -17,7 +17,6 @@ export default function HeroSection() {
           src={googleDrivePreviewUrl}
           className="absolute inset-0 w-full h-full z-0"
           style={{ 
-            pointerEvents: 'none',
             border: 'none',
             width: '100vw',
             height: '100vh',
@@ -30,7 +29,6 @@ export default function HeroSection() {
           allowFullScreen={false}
           title="Hero background video"
           scrolling="no"
-          sandbox="allow-scripts allow-same-origin allow-presentation"
         />
         {/* Gradient Overlay - subtle overlay for text readability, positioned above video but below content */}
         <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-black/30 z-[1]" />
