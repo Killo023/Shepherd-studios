@@ -64,9 +64,8 @@ export default function HeroSection() {
             objectFit: 'cover'
           }}
           onError={(e) => {
-            console.error('Video failed to load. Google Drive may block direct video access due to CORS.');
+            console.error('Video failed to load:', videoSrc);
             console.error('Error:', (e.target as HTMLVideoElement).error);
-            // Show fallback message or try alternative URL
           }}
           onLoadedData={() => {
             console.log('Hero video loaded successfully - autoplay and loop enabled');
