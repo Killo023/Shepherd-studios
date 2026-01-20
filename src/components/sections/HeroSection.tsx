@@ -4,33 +4,86 @@ import { motion } from 'framer-motion';
 import { useEffect, useRef, useState } from 'react';
 
 export default function HeroSection() {
-  // Google Drive video URL - HTML5 video doesn't work due to CORS, so we use iframe
+  const videoRef = useRef<HTMLVideoElement>(null);
+  
+  // Google Drive video URL
   // File ID: 1wyylgPnYgUe-oXHvxj7CUJAwLWjSlBZL
-  // Using preview URL - Google Drive handles autoplay via iframe
+  // Try direct download URL first - may work in some browsers/servers
+  const googleDriveDirectUrl = 'https://drive.google.com/uc?export=download&id=1wyylgPnYgUe-oXHvxj7CUJAwLWjSlBZL';
   const googleDrivePreviewUrl = 'https://drive.google.com/file/d/1wyylgPnYgUe-oXHvxj7CUJAwLWjSlBZL/preview';
+  
+  const [useIframe, setUseIframe] = useState(false);
+  
+  useEffect(() => {
+    const video = videoRef.current;
+    if (video && !useIframe) {
+      // Try to play video
+      const playVideo = () => {
+        video.play().catch((error) => {
+          console.warn('Video autoplay failed, will try iframe:', error);
+          setUseIframe(true);
+        });
+      };
+      
+      video.addEventListener('loadeddata', playVideo);
+      video.addEventListener('canplay', playVideo);
+      
+      // Try playing immediately
+      playVideo();
+      
+      return () => {
+        video.removeEventListener('loadeddata', playVideo);
+        video.removeEventListener('canplay', playVideo);
+      };
+    }
+  }, [useIframe]);
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Background Video - Using Google Drive iframe (HTML5 video blocked by CORS) */}
+      {/* Background Video */}
       <div className="absolute inset-0 z-0 overflow-hidden">
-        <iframe
-          src={googleDrivePreviewUrl}
-          className="absolute inset-0 w-full h-full z-0"
-          style={{ 
-            pointerEvents: 'none',
-            border: 'none',
-            width: '100vw',
-            height: '100vh',
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            objectFit: 'cover'
-          }}
-          allow="autoplay; encrypted-media; fullscreen"
-          allowFullScreen={false}
-          title="Hero background video"
-          scrolling="no"
-        />
+        {useIframe ? (
+          // Fallback to iframe if HTML5 video fails (Google Drive limitation)
+          <iframe
+            src={googleDrivePreviewUrl}
+            className="absolute inset-0 w-full h-full z-0"
+            style={{ 
+              pointerEvents: 'none',
+              border: 'none',
+              width: '100vw',
+              height: '100vh',
+              position: 'absolute',
+              top: 0,
+              left: 0
+            }}
+            allow="autoplay; encrypted-media; fullscreen"
+            allowFullScreen={false}
+            title="Hero background video"
+            scrolling="no"
+          />
+        ) : (
+          // Try HTML5 video first (may work in some cases)
+          <video
+            ref={videoRef}
+            autoPlay
+            loop
+            muted
+            playsInline
+            preload="auto"
+            className="absolute inset-0 w-full h-full object-cover z-0"
+            style={{ pointerEvents: 'none' }}
+            onError={(e) => {
+              console.error('HTML5 video failed, switching to iframe');
+              setUseIframe(true);
+            }}
+            onLoadedData={() => {
+              console.log('Hero video loaded successfully');
+              videoRef.current?.play().catch(() => setUseIframe(true));
+            }}
+          >
+            <source src={googleDriveDirectUrl} type="video/mp4" />
+          </video>
+        )}
         {/* Gradient Overlay - subtle overlay for text readability, positioned above video but below content */}
         <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-black/30 z-[1]" />
         {/* Subtle pattern overlay */}
