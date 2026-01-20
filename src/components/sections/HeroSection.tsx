@@ -65,13 +65,21 @@ export default function HeroSection() {
           className="absolute inset-0 w-full h-full object-cover z-0"
           style={{ pointerEvents: 'none' }}
           onError={(e) => {
-            console.error('Hero video failed to load:', videoSrc, e);
-            console.error('Video error details:', {
-              error: e,
-              videoSrc,
-              videoElement: videoRef.current
-            });
-            setVideoError(true);
+            const videoElement = e.target as HTMLVideoElement;
+            console.error('Hero video failed to load:', videoSrc);
+            console.error('Error code:', videoElement.error?.code, 'Message:', videoElement.error?.message);
+            
+            // Try alternative URL formats
+            if (videoSrc.includes('export=download')) {
+              console.log('Trying alternative URL format: export=view');
+              setVideoSrc('https://drive.google.com/uc?export=view&id=1wyylgPnYgUe-oXHvxj7CUJAwLWjSlBZL');
+            } else if (videoSrc.includes('export=view')) {
+              console.log('Trying alternative URL format: file/d/preview');
+              setVideoSrc('https://drive.google.com/file/d/1wyylgPnYgUe-oXHvxj7CUJAwLWjSlBZL/preview');
+            } else {
+              console.error('All Google Drive URL formats failed');
+              setVideoError(true);
+            }
           }}
           onLoadedData={() => {
             console.log('Hero video loaded successfully');
