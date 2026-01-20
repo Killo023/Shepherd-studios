@@ -11,27 +11,57 @@ export default function HeroSection() {
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Background Video - Using Google Drive iframe */}
+      {/* Background Video */}
       <div className="absolute inset-0 z-0 overflow-hidden">
-        <iframe
-          src={googleDrivePreviewUrl}
-          className="absolute inset-0 w-full h-full z-0"
-          style={{ 
-            border: 'none',
-            width: '100vw',
-            height: '100vh',
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            zIndex: 0
-          }}
-          allow="autoplay; encrypted-media; fullscreen"
-          allowFullScreen={false}
-          title="Hero background video"
-          scrolling="no"
-        />
-        {/* Gradient Overlay - subtle overlay for text readability, positioned above video but below content */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-black/30 z-[1]" />
+        {useIframe ? (
+          // Fallback to iframe if HTML5 video fails
+          <iframe
+            src={googleDrivePreviewUrl}
+            className="absolute inset-0 w-full h-full z-0"
+            style={{ 
+              border: 'none',
+              width: '100vw',
+              height: '100vh',
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              zIndex: 0
+            }}
+            allow="autoplay; encrypted-media; fullscreen"
+            allowFullScreen={false}
+            title="Hero background video"
+            scrolling="no"
+          />
+        ) : (
+          // HTML5 video - supports autoplay and loop
+          <video
+            ref={videoRef}
+            autoPlay
+            loop
+            muted
+            playsInline
+            preload="auto"
+            className="absolute inset-0 w-full h-full object-cover z-0"
+            style={{ pointerEvents: 'none' }}
+            onError={(e) => {
+              console.error('HTML5 video failed, switching to iframe');
+              setUseIframe(true);
+            }}
+            onLoadedData={() => {
+              console.log('Hero video loaded - autoplay and loop enabled');
+              videoRef.current?.play().catch(() => setUseIframe(true));
+            }}
+            onEnded={() => {
+              // Ensure video loops
+              videoRef.current?.play().catch(() => setUseIframe(true));
+            }}
+          >
+            <source src={googleDriveDirectUrl} type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+        )}
+        {/* Subtle background overlay for text readability */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/30 to-black/40 z-[1]" />
         {/* Subtle pattern overlay */}
         <div className="absolute inset-0 opacity-10" style={{
           backgroundImage: 'radial-gradient(circle at 2px 2px, white 1px, transparent 0)',
