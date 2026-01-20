@@ -9,8 +9,8 @@ export default function HeroSection() {
   
   // Use Google Drive video URL
   // File ID: 1wyylgPnYgUe-oXHvxj7CUJAwLWjSlBZL
-  // Using uc?export=view format which works better for video playback
-  const videoSrc = 'https://drive.google.com/uc?export=view&id=1wyylgPnYgUe-oXHvxj7CUJAwLWjSlBZL';
+  // Try direct download URL with confirm parameter (sometimes bypasses CORS)
+  const [videoSrc, setVideoSrc] = useState('https://drive.google.com/uc?export=download&id=1wyylgPnYgUe-oXHvxj7CUJAwLWjSlBZL&confirm=t');
 
   useEffect(() => {
     const video = videoRef.current;
