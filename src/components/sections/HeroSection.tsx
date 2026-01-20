@@ -1,10 +1,14 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 export default function HeroSection() {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const [videoError, setVideoError] = useState(false);
+  
+  // Use local video file
+  const videoSrc = '/videos/hero-background.mp4';
 
   useEffect(() => {
     const video = videoRef.current;
@@ -41,11 +45,21 @@ export default function HeroSection() {
           controlsList="nodownload nofullscreen noremoteplayback"
           className="absolute inset-0 w-full h-full object-cover"
           style={{ pointerEvents: 'none' }}
+          onError={(e) => {
+            console.error('Hero video failed to load:', videoSrc, e);
+            setVideoError(true);
+          }}
+          onLoadedData={() => {
+            console.log('Hero video loaded successfully');
+            setVideoError(false);
+          }}
         >
-          <source src="/videos/hero-background.mp4" type="video/mp4" />
-          {/* Fallback image if video doesn't load */}
-          <div className="absolute inset-0 bg-gradient-to-b from-primary/70 via-primary/60 to-primary/70" />
+          <source src={videoSrc} type="video/mp4" />
+          Your browser does not support the video tag.
         </video>
+        {videoError && (
+          <div className="absolute inset-0 bg-gradient-to-b from-primary/70 via-primary/60 to-primary/70" />
+        )}
             {/* Gradient Overlay */}
             <div className="absolute inset-0 bg-gradient-to-b from-primary/70 via-primary/60 to-primary/70" />
         {/* Subtle pattern overlay */}
