@@ -28,6 +28,7 @@ export default function VideoCard({
   const [showVideoThumbnail, setShowVideoThumbnail] = useState(false);
   const [googleDriveThumbnail, setGoogleDriveThumbnail] = useState<string | null>(null);
   const [isLoadingThumbnail, setIsLoadingThumbnail] = useState(false);
+  const [useIframeThumbnail, setUseIframeThumbnail] = useState(false);
   const thumbnailVideoRef = useRef<HTMLVideoElement>(null);
 
   // Get Google Drive thumbnail URL
@@ -45,13 +46,17 @@ export default function VideoCard({
 
       // Try multiple thumbnail URL formats
       const thumbnailUrls = [
-        // Method 1: Google Drive thumbnail API
+        // Method 1: Google Drive thumbnail API with authuser parameter
+        `https://drive.google.com/thumbnail?authuser=0&sz=w1280&id=${fileId}`,
+        // Method 2: Google Drive uc?export=view format (works for images/videos)
+        `https://drive.google.com/uc?export=view&id=${fileId}`,
+        // Method 3: Google Drive thumbnail API standard format
         `https://drive.google.com/thumbnail?id=${fileId}&sz=w1280-h720`,
-        // Method 2: Googleusercontent direct link
+        // Method 4: Googleusercontent direct link
         `https://lh3.googleusercontent.com/d/${fileId}=w1280-h720`,
-        // Method 3: Alternative thumbnail API format
+        // Method 5: Alternative thumbnail API format
         `https://drive.google.com/thumbnail?id=${fileId}&sz=w1920-h1080`,
-        // Method 4: Smaller size as fallback
+        // Method 6: Smaller size as fallback
         `https://drive.google.com/thumbnail?id=${fileId}&sz=w640-h360`,
       ];
 
@@ -62,20 +67,33 @@ export default function VideoCard({
         if (currentIndex >= thumbnailUrls.length) {
           console.warn('All Google Drive thumbnail methods failed for:', fileId);
           setIsLoadingThumbnail(false);
+          // Fallback to iframe-based thumbnail
+          setUseIframeThumbnail(true);
           return;
         }
 
         const thumbUrl = thumbnailUrls[currentIndex];
         const img = new window.Image();
         
+        // Set a timeout to prevent hanging
+        const timeout = setTimeout(() => {
+          if (currentIndex < thumbnailUrls.length) {
+            console.warn(`Thumbnail load timeout for method ${currentIndex + 1}`);
+            currentIndex++;
+            tryNextThumbnail();
+          }
+        }, 3000);
+        
         // Don't set crossOrigin for Google Drive thumbnails as they may not support CORS
         img.onload = () => {
+          clearTimeout(timeout);
           console.log('Google Drive thumbnail loaded successfully:', thumbUrl);
           setGoogleDriveThumbnail(thumbUrl);
           setIsLoadingThumbnail(false);
         };
         
         img.onerror = () => {
+          clearTimeout(timeout);
           console.warn(`Google Drive thumbnail method ${currentIndex + 1} failed:`, thumbUrl);
           currentIndex++;
           tryNextThumbnail();
@@ -144,20 +162,32 @@ export default function VideoCard({
             preload="metadata"
             style={{ pointerEvents: 'none' }}
           />
-        ) : isGoogleDriveUrl(videoUrl) && googleDriveThumbnail ? (
-          <Image
-            src={googleDriveThumbnail}
-            alt={title}
-            fill
-            className={`object-cover transition-transform duration-300 ${
-              isHovered ? 'scale-110' : 'scale-100'
-            }`}
-            unoptimized
-            onError={() => {
-              // Fallback if thumbnail fails to load
-              setGoogleDriveThumbnail(null);
-            }}
-          />
+        ) : isGoogleDriveUrl(videoUrl) && (googleDriveThumbnail || useIframeThumbnail) ? (
+          useIframeThumbnail && !googleDriveThumbnail ? (
+            // Fallback: Use iframe preview as thumbnail
+            <iframe
+              src={`https://drive.google.com/file/d/${(originalVideoPath || videoUrl).match(/\/file\/d\/([a-zA-Z0-9_-]+)/)?.[1]}/preview`}
+              className="w-full h-full"
+              style={{ border: 'none', pointerEvents: 'none' }}
+              allow="autoplay; encrypted-media"
+              title={`${title} preview`}
+            />
+          ) : googleDriveThumbnail ? (
+            <Image
+              src={googleDriveThumbnail}
+              alt={title}
+              fill
+              className={`object-cover transition-transform duration-300 ${
+                isHovered ? 'scale-110' : 'scale-100'
+              }`}
+              unoptimized
+              onError={() => {
+                // Fallback to iframe if image fails
+                setGoogleDriveThumbnail(null);
+                setUseIframeThumbnail(true);
+              }}
+            />
+          ) : null
         ) : thumbnail && thumbnail !== '/images/videos/placeholder.svg' ? (
           <Image
             src={thumbnail}
