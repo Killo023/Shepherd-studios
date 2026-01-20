@@ -9,6 +9,7 @@ export interface Video {
   description?: string;
   thumbnail: string;
   videoUrl: string;
+  originalVideoPath?: string; // Original Google Drive share link for thumbnail generation
   duration?: string;
   category?: string;
 }
@@ -61,7 +62,7 @@ export default function VideoGallery({
             description={video.description}
             thumbnail={video.thumbnail}
             videoUrl={video.videoUrl}
-            originalVideoPath={(video as any).originalVideoPath}
+            originalVideoPath={video.originalVideoPath}
             duration={video.duration}
             onClick={() => onVideoSelect?.(video)}
           />

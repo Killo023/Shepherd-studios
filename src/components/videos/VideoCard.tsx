@@ -27,6 +27,7 @@ export default function VideoCard({
   const [isHovered, setIsHovered] = useState(false);
   const [showVideoThumbnail, setShowVideoThumbnail] = useState(false);
   const [googleDriveThumbnail, setGoogleDriveThumbnail] = useState<string | null>(null);
+  const [isLoadingThumbnail, setIsLoadingThumbnail] = useState(false);
   const thumbnailVideoRef = useRef<HTMLVideoElement>(null);
 
   // Get Google Drive thumbnail URL
@@ -35,30 +36,55 @@ export default function VideoCard({
       // Use originalVideoPath if available (original share link), otherwise use videoUrl
       // The originalVideoPath contains the share link which is better for thumbnail extraction
       const urlToUse = originalVideoPath || videoUrl;
-      const thumbUrl = getGoogleDriveThumbnailUrl(urlToUse, 1280, 720);
-      if (thumbUrl) {
-        // Test if thumbnail loads using browser's native Image constructor
-        const img = new window.Image();
-        img.crossOrigin = 'anonymous';
-        img.onload = () => {
-          setGoogleDriveThumbnail(thumbUrl);
-        };
-        img.onerror = () => {
-          console.warn('Google Drive thumbnail failed to load:', thumbUrl);
-          // Try alternative thumbnail URL format
-          const fileId = urlToUse.match(/\/file\/d\/([a-zA-Z0-9_-]+)/)?.[1];
-          if (fileId) {
-            const altThumbUrl = `https://lh3.googleusercontent.com/d/${fileId}=w1280-h720`;
-            const altImg = new window.Image();
-            altImg.crossOrigin = 'anonymous';
-            altImg.onload = () => {
-              setGoogleDriveThumbnail(altThumbUrl);
-            };
-            altImg.src = altThumbUrl;
-          }
-        };
-        img.src = thumbUrl;
+      const fileId = urlToUse.match(/\/file\/d\/([a-zA-Z0-9_-]+)/)?.[1];
+      
+      if (!fileId) {
+        console.warn('Could not extract file ID from Google Drive URL:', urlToUse);
+        return;
       }
+
+      // Try multiple thumbnail URL formats
+      const thumbnailUrls = [
+        // Method 1: Google Drive thumbnail API
+        `https://drive.google.com/thumbnail?id=${fileId}&sz=w1280-h720`,
+        // Method 2: Googleusercontent direct link
+        `https://lh3.googleusercontent.com/d/${fileId}=w1280-h720`,
+        // Method 3: Alternative thumbnail API format
+        `https://drive.google.com/thumbnail?id=${fileId}&sz=w1920-h1080`,
+        // Method 4: Smaller size as fallback
+        `https://drive.google.com/thumbnail?id=${fileId}&sz=w640-h360`,
+      ];
+
+      let currentIndex = 0;
+      setIsLoadingThumbnail(true);
+
+      const tryNextThumbnail = () => {
+        if (currentIndex >= thumbnailUrls.length) {
+          console.warn('All Google Drive thumbnail methods failed for:', fileId);
+          setIsLoadingThumbnail(false);
+          return;
+        }
+
+        const thumbUrl = thumbnailUrls[currentIndex];
+        const img = new window.Image();
+        
+        // Don't set crossOrigin for Google Drive thumbnails as they may not support CORS
+        img.onload = () => {
+          console.log('Google Drive thumbnail loaded successfully:', thumbUrl);
+          setGoogleDriveThumbnail(thumbUrl);
+          setIsLoadingThumbnail(false);
+        };
+        
+        img.onerror = () => {
+          console.warn(`Google Drive thumbnail method ${currentIndex + 1} failed:`, thumbUrl);
+          currentIndex++;
+          tryNextThumbnail();
+        };
+        
+        img.src = thumbUrl;
+      };
+
+      tryNextThumbnail();
     }
   }, [videoUrl, originalVideoPath]);
 
@@ -154,8 +180,15 @@ export default function VideoCard({
                 preload="metadata"
               />
             )}
-            <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-gray-700 to-gray-900 text-white text-2xl font-bold">
-              {title.charAt(0)}
+            <div className="w-full h-full flex flex-col items-center justify-center bg-gradient-to-br from-gray-700 to-gray-900 text-white">
+              {isGoogleDriveUrl(videoUrl) && isLoadingThumbnail ? (
+                <>
+                  <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-white mb-2"></div>
+                  <span className="text-sm">Loading thumbnail...</span>
+                </>
+              ) : (
+                <span className="text-2xl font-bold">{title.charAt(0)}</span>
+              )}
             </div>
           </>
         )}
