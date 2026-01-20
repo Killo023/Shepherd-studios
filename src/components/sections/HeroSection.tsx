@@ -1,34 +1,90 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import { useEffect, useRef } from 'react';
 
 export default function HeroSection() {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  
   // Google Drive video URL
   // File ID: 1wyylgPnYgUe-oXHvxj7CUJAwLWjSlBZL
-  // Using iframe - HTML5 video blocked by CORS from Google Drive
-  const googleDrivePreviewUrl = 'https://drive.google.com/file/d/1wyylgPnYgUe-oXHvxj7CUJAwLWjSlBZL/preview';
+  // Try direct download URL for HTML5 video (supports autoplay/loop)
+  const googleDriveDirectUrl = 'https://drive.google.com/uc?export=download&id=1wyylgPnYgUe-oXHvxj7CUJAwLWjSlBZL';
+  
+  useEffect(() => {
+    const video = videoRef.current;
+    if (video) {
+      // Force play and ensure looping
+      const playVideo = () => {
+        if (video.readyState >= 2) {
+          video.play().catch((error) => {
+            console.error('Video autoplay failed:', error);
+          });
+        }
+      };
+      
+      // Ensure video loops when it ends
+      const handleEnded = () => {
+        video.currentTime = 0;
+        video.play().catch(console.error);
+      };
+      
+      video.addEventListener('loadeddata', playVideo);
+      video.addEventListener('canplay', playVideo);
+      video.addEventListener('canplaythrough', playVideo);
+      video.addEventListener('ended', handleEnded);
+      
+      // Try playing immediately
+      playVideo();
+      
+      return () => {
+        video.removeEventListener('loadeddata', playVideo);
+        video.removeEventListener('canplay', playVideo);
+        video.removeEventListener('canplaythrough', playVideo);
+        video.removeEventListener('ended', handleEnded);
+      };
+    }
+  }, []);
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Background Video - Google Drive iframe */}
+      {/* Background Video - HTML5 video with autoplay and loop */}
       <div className="absolute inset-0 z-0 overflow-hidden">
-        <iframe
-          src={googleDrivePreviewUrl}
-          className="absolute inset-0 w-full h-full z-0"
+        <video
+          ref={videoRef}
+          autoPlay
+          loop
+          muted
+          playsInline
+          preload="auto"
+          className="absolute inset-0 w-full h-full object-cover z-0"
           style={{ 
-            border: 'none',
+            pointerEvents: 'none',
             width: '100%',
             height: '100%',
             minHeight: '100vh',
-            position: 'absolute',
-            top: 0,
-            left: 0
+            objectFit: 'cover'
           }}
-          allow="autoplay; encrypted-media; fullscreen"
-          allowFullScreen={false}
-          title="Hero background video"
-          scrolling="no"
-        />
+          onError={(e) => {
+            console.error('Video failed to load. Google Drive may block direct video access due to CORS.');
+            console.error('Error:', (e.target as HTMLVideoElement).error);
+            // Show fallback message or try alternative URL
+          }}
+          onLoadedData={() => {
+            console.log('Hero video loaded successfully - autoplay and loop enabled');
+            videoRef.current?.play().catch(console.error);
+          }}
+          onEnded={() => {
+            // Ensure video loops by restarting
+            if (videoRef.current) {
+              videoRef.current.currentTime = 0;
+              videoRef.current.play().catch(console.error);
+            }
+          }}
+        >
+          <source src={googleDriveDirectUrl} type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
         {/* Subtle background overlay for text readability */}
         <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/30 to-black/40 z-[1]" />
         {/* Subtle pattern overlay */}
