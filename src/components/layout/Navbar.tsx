@@ -35,7 +35,7 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between min-h-[116px] md:min-h-[120px] lg:min-h-[124px] py-1">
           {/* Logo */}
-              <Link href="/" className="flex items-center px-2 md:px-4 lg:px-6">
+              <Link href="/" className="flex items-center px-2 md:px-4 lg:px-6 flex-shrink-0 max-w-[calc(100%-60px)]">
                 <Image
                   src="/images/logo/Shepherds Logo-01.png"
                   alt="Shepherd Studios"
