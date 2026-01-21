@@ -33,7 +33,7 @@ export default function Navbar() {
       }`}
     >
       <div className="max-w-7xl mx-auto px-2 sm:px-4 md:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-[116px] md:h-[120px] lg:h-[124px] py-1 gap-2">
+        <div className="flex items-center justify-between h-[216px] md:h-[220px] lg:h-[224px] py-1 gap-2">
           {/* Logo */}
               <Link href="/" className="flex items-center px-1 md:px-4 lg:px-6 flex-shrink min-w-0 overflow-hidden">
                 <Image
@@ -41,7 +41,7 @@ export default function Navbar() {
                   alt="Shepherd Studios"
                   width={600}
                   height={270}
-                  className={`h-[116px] md:h-[120px] lg:h-[124px] w-auto transition-all duration-300 ${
+                  className={`h-[216px] md:h-[220px] lg:h-[224px] w-auto transition-all duration-300 ${
                     scrolled || shouldUseWhiteNavbar
                       ? '' 
                       : 'brightness-0 invert drop-shadow-[0_4px_12px_rgba(255,255,255,0.3)]'
