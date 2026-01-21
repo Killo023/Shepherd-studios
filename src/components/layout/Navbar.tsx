@@ -32,10 +32,10 @@ export default function Navbar() {
           : 'bg-black/20 backdrop-blur-sm'
       }`}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between min-h-[116px] md:min-h-[120px] lg:min-h-[124px] py-1">
+      <div className="max-w-7xl mx-auto px-2 sm:px-4 md:px-6 lg:px-8">
+        <div className="flex items-center justify-between min-h-[116px] md:min-h-[120px] lg:min-h-[124px] py-1 gap-2">
           {/* Logo */}
-              <Link href="/" className="flex items-center px-2 md:px-4 lg:px-6 flex-shrink-0 max-w-[calc(100%-60px)]">
+              <Link href="/" className="flex items-center px-1 md:px-4 lg:px-6 flex-shrink min-w-0">
                 <Image
                   src="/images/logo/Shepherds Logo-01.png"
                   alt="Shepherd Studios"
@@ -86,7 +86,7 @@ export default function Navbar() {
           {/* Mobile menu button */}
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className={`md:hidden p-2 rounded-md focus:outline-none transition-colors z-10 relative flex-shrink-0 ${
+            className={`md:hidden p-2 rounded-md focus:outline-none transition-colors z-10 relative flex-shrink-0 ml-auto ${
               scrolled || shouldUseWhiteNavbar
                 ? 'text-gray-700 hover:text-primary'
                 : 'text-white hover:text-white/80'
