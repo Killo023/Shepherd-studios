@@ -88,7 +88,7 @@ export default function ProcessSection() {
             } else if (step.position === 'bottom') {
               circleRadius = radius + 7; // Step 03: Very close to line but still outside
             } else if (step.position === 'right') {
-              circleRadius = radius + 40; // Step 02: Outside the line
+              circleRadius = radius + 20; // Step 02: Closer to line but still outside
             }
             const x = centerX + circleRadius * Math.cos(angleRad);
             const y = centerY + circleRadius * Math.sin(angleRad);
@@ -108,8 +108,9 @@ export default function ProcessSection() {
               labelRadius = circleRadius + 55; // Further from circle to prevent overlap with step 03
               labelOffsetY = 30; // Below the circle, with more space to prevent overlap
             } else if (step.position === 'right') {
-              labelRadius = circleRadius + 45; // To the right of the circle
-              labelOffsetX = 15; // Additional offset
+              labelRadius = circleRadius + 50; // Further from circle to prevent overlap
+              labelOffsetY = -20; // Above the circle to prevent overlap
+              labelOffsetX = 10; // Additional offset
             }
 
             const labelX = centerX + labelRadius * Math.cos(angleRad) + labelOffsetX;
