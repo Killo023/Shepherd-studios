@@ -83,10 +83,23 @@ export default function ProcessSection() {
             const x = centerX + radius * Math.cos(angleRad);
             const y = centerY + radius * Math.sin(angleRad);
 
-            // Calculate label offset position (closer to circle)
-            const labelRadius = radius + (step.position === 'top' ? 50 : 60);
-            const labelX = centerX + labelRadius * Math.cos(angleRad);
-            const labelY = centerY + labelRadius * Math.sin(angleRad);
+            // Calculate label offset position based on position
+            // Position labels consistently outside the circle
+            let labelRadius = radius + 80;
+            let labelOffsetX = 0;
+            let labelOffsetY = 0;
+            
+            // Adjust label position based on step position
+            if (step.position === 'top') {
+              labelOffsetY = -50; // Above the circle
+            } else if (step.position === 'bottom') {
+              labelOffsetY = 50; // Below the circle
+            } else if (step.position === 'right') {
+              labelOffsetX = 50; // To the right of the circle
+            }
+
+            const labelX = centerX + labelRadius * Math.cos(angleRad) + labelOffsetX;
+            const labelY = centerY + labelRadius * Math.sin(angleRad) + labelOffsetY;
 
             return (
               <div key={step.number} className="absolute inset-0">
@@ -119,7 +132,7 @@ export default function ProcessSection() {
                     transform: 'translate(-50%, -50%)',
                   }}
                 >
-                  <p className="text-primary font-semibold text-sm md:text-base text-center whitespace-nowrap bg-white/80 px-3 py-1 rounded-md">
+                  <p className="text-primary font-semibold text-sm md:text-base text-center whitespace-nowrap bg-white/80 px-4 py-2 rounded-md shadow-sm" style={{ letterSpacing: '0.02em' }}>
                     {step.title}
                   </p>
                 </div>
