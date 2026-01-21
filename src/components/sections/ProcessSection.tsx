@@ -153,15 +153,14 @@ export default function ProcessSection() {
 
                 {/* Step Label */}
                 <div
-                  className={`absolute ${step.position === 'right' ? 'md:left-auto md:right-0 md:transform-none md:translate-x-0 md:translate-y-0' : ''}`}
+                  className="absolute"
                   style={{
-                    left: step.position === 'right' ? 'auto' : `${(labelX / 400) * 100}%`,
-                    right: step.position === 'right' ? '0' : 'auto',
+                    left: `${(labelX / 400) * 100}%`,
                     top: `${(labelY / 400) * 100}%`,
-                    transform: step.position === 'right' ? 'translateY(-50%)' : 'translate(-50%, -50%)',
+                    transform: 'translate(-50%, -50%)',
                   }}
                 >
-                  <p className={`text-primary font-semibold text-sm md:text-base text-center whitespace-nowrap bg-white/80 px-4 py-2 rounded-md shadow-sm ${step.position === 'right' ? 'md:text-right' : ''}`} style={{ letterSpacing: '0.01em', wordSpacing: '0.1em' }}>
+                  <p className="text-primary font-semibold text-sm md:text-base text-center whitespace-nowrap bg-white/80 px-4 py-2 rounded-md shadow-sm" style={{ letterSpacing: '0.01em', wordSpacing: '0.1em' }}>
                     {step.title}
                   </p>
                 </div>
