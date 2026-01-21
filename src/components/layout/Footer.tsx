@@ -79,6 +79,7 @@ export default function Footer() {
               <li>
                 <span className="font-medium text-gray-300">Phone:</span>
                 <div className="ml-2 mt-1">
+                  <div>Admin: <a href="tel:+27691871037" className="hover:text-white transition-colors">+27 69 187 1037</a></div>
                   <div>Benito: <a href="tel:+27734545317" className="hover:text-white transition-colors">+27 73 454 5317</a></div>
                   <div>Samuel: <a href="tel:+27734890932" className="hover:text-white transition-colors">+27 73 489 0932</a></div>
                 </div>
