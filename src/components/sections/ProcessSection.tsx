@@ -86,7 +86,7 @@ export default function ProcessSection() {
             if (step.position === 'top') {
               circleRadius = radius + 50; // Step 01: Further outside to ensure completely outside the line
             } else if (step.position === 'bottom') {
-              circleRadius = radius + 35; // Step 03: Closer to line but still outside
+              circleRadius = radius + 25; // Step 03: Closer to line but still outside
             } else if (step.position === 'right') {
               circleRadius = radius + 40; // Step 02: Outside the line
             }
@@ -105,8 +105,8 @@ export default function ProcessSection() {
               labelRadius = circleRadius + 15; // Close to the circle for step 01
               labelOffsetY = -12; // Above the circle, very close
             } else if (step.position === 'bottom') {
-              labelRadius = circleRadius + 20; // Close to circle for step 03, closer to line
-              labelOffsetY = 15; // Below the circle, closer
+              labelRadius = circleRadius + 50; // Further from circle to prevent overlap with step 03
+              labelOffsetY = 25; // Below the circle, with more space to prevent overlap
             } else if (step.position === 'right') {
               labelRadius = circleRadius + 45; // To the right of the circle
               labelOffsetX = 15; // Additional offset
