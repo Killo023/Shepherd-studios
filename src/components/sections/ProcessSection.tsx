@@ -135,7 +135,7 @@ export default function ProcessSection() {
                     transform: 'translate(-50%, -50%)',
                   }}
                 >
-                  <p className="text-primary font-semibold text-sm md:text-base text-center whitespace-nowrap bg-white/80 px-4 py-2 rounded-md shadow-sm" style={{ letterSpacing: '0.02em' }}>
+                  <p className="text-primary font-semibold text-sm md:text-base text-center whitespace-nowrap bg-white/80 px-4 py-2 rounded-md shadow-sm" style={{ letterSpacing: '0.01em', wordSpacing: '0.1em' }}>
                     {step.title}
                   </p>
                 </div>
