@@ -33,7 +33,7 @@ export default function Navbar() {
       }`}
     >
       <div className="max-w-7xl mx-auto px-2 sm:px-4 md:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-[216px] md:h-[220px] lg:h-[224px] py-1 gap-2">
+        <div className="flex items-center justify-between h-20 md:h-24 lg:h-28 py-1 gap-2">
           {/* Logo */}
               <Link href="/" className="flex items-center px-1 md:px-4 lg:px-6 flex-shrink min-w-0 overflow-hidden">
                 <Image
