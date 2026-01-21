@@ -45,7 +45,7 @@ export default function HeroSection() {
   }, []);
 
   return (
-        <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-[140px]">
+        <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-[180px] md:pt-[200px]">
       {/* Background Video - HTML5 video with autoplay and loop */}
       <div className="absolute inset-0 z-0 overflow-hidden">
         <video
