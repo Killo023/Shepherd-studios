@@ -98,8 +98,8 @@ export default function ProcessSection() {
               // Step 01: On mobile, bring closer to circle line
               circleRadius = radius + (isMobile ? 30 : 50);
             } else if (step.position === 'bottom') {
-              // Step 03: On mobile, bring closer to circle line
-              circleRadius = radius + (isMobile ? 2 : 7);
+              // Step 03: On mobile, bring much closer to circle line
+              circleRadius = radius + (isMobile ? -5 : 7); // Inside/on the line on mobile
             } else if (step.position === 'right') {
               // Step 02: On mobile, bring inside the circle line to prevent overflow
               circleRadius = radius + (isMobile ? -15 : 20); // Inside the line on mobile, still outside on desktop
@@ -120,9 +120,9 @@ export default function ProcessSection() {
               labelRadius = circleRadius + (isMobile ? 8 : 15); // Closer on mobile
               labelOffsetY = isMobile ? -8 : -12; // Closer on mobile
             } else if (step.position === 'bottom') {
-              // On mobile, bring labels closer to circles
-              labelRadius = circleRadius + (isMobile ? 25 : 55); // Closer on mobile
-              labelOffsetY = isMobile ? 15 : 30; // Closer on mobile
+              // On mobile, bring labels closer to circles but prevent overlap
+              labelRadius = circleRadius + (isMobile ? 35 : 55); // Further from circle on mobile to prevent overlap
+              labelOffsetY = isMobile ? 20 : 30; // More space below circle on mobile
             } else if (step.position === 'right') {
               // Step 02 label: On mobile, bring much closer to circle and move left significantly
               labelRadius = circleRadius + (isMobile ? 8 : 50); // Very close on mobile
