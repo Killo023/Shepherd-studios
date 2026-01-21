@@ -81,7 +81,15 @@ export default function ProcessSection() {
             // Calculate position on circle - move circles outside the circle line
             const angleRad = (step.angle * Math.PI) / 180;
             // Position circles outside the circle line (radius + offset)
-            const circleRadius = radius + (step.position === 'top' ? 30 : step.position === 'bottom' ? 30 : 30);
+            // Step 01 needs more offset to be completely outside, step 03 closer but still outside
+            let circleRadius = radius;
+            if (step.position === 'top') {
+              circleRadius = radius + 50; // Step 01: Further outside to ensure completely outside the line
+            } else if (step.position === 'bottom') {
+              circleRadius = radius + 35; // Step 03: Closer to line but still outside
+            } else if (step.position === 'right') {
+              circleRadius = radius + 40; // Step 02: Outside the line
+            }
             const x = centerX + circleRadius * Math.cos(angleRad);
             const y = centerY + circleRadius * Math.sin(angleRad);
 
@@ -94,14 +102,14 @@ export default function ProcessSection() {
             // Adjust label position based on step position
             // Position labels relative to the circle (which is now outside the line)
             if (step.position === 'top') {
-              labelRadius = circleRadius + 20; // Close to the circle for step 01
-              labelOffsetY = -15; // Above the circle, very close
+              labelRadius = circleRadius + 15; // Close to the circle for step 01
+              labelOffsetY = -12; // Above the circle, very close
             } else if (step.position === 'bottom') {
-              labelRadius = circleRadius + 40; // Further from circle to prevent overlap with step 03
-              labelOffsetY = 30; // Below the circle, with more space
+              labelRadius = circleRadius + 20; // Close to circle for step 03, closer to line
+              labelOffsetY = 15; // Below the circle, closer
             } else if (step.position === 'right') {
-              labelRadius = circleRadius + 50; // To the right of the circle
-              labelOffsetX = 20; // Additional offset
+              labelRadius = circleRadius + 45; // To the right of the circle
+              labelOffsetX = 15; // Additional offset
             }
 
             const labelX = centerX + labelRadius * Math.cos(angleRad) + labelOffsetX;
