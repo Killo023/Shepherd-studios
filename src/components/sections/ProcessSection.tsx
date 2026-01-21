@@ -95,18 +95,14 @@ export default function ProcessSection() {
             // Step 01 needs more offset to be completely outside, step 03 closer but still outside
             let circleRadius = radius;
             if (step.position === 'top') {
-              circleRadius = radius + 50; // Step 01: Further outside to ensure completely outside the line
+              // Step 01: On mobile, bring closer to circle line
+              circleRadius = radius + (isMobile ? 30 : 50);
             } else if (step.position === 'bottom') {
-              circleRadius = radius + 7; // Step 03: Very close to line but still outside
+              // Step 03: On mobile, bring closer to circle line
+              circleRadius = radius + (isMobile ? 2 : 7);
             } else if (step.position === 'right') {
               // Step 02: On mobile, bring much closer to circle line to prevent overflow
               circleRadius = radius + (isMobile ? 0 : 20); // On the line on mobile, still outside on desktop
-            } else if (step.position === 'top') {
-              // On mobile, bring step 01 closer to circle line
-              circleRadius = radius + (isMobile ? 30 : 50);
-            } else if (step.position === 'bottom') {
-              // On mobile, bring step 03 closer to circle line
-              circleRadius = radius + (isMobile ? 2 : 7);
             }
             const x = centerX + circleRadius * Math.cos(angleRad);
             const y = centerY + circleRadius * Math.sin(angleRad);
