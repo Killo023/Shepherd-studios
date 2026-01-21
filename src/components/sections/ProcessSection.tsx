@@ -100,7 +100,7 @@ export default function ProcessSection() {
               circleRadius = radius + 7; // Step 03: Very close to line but still outside
             } else if (step.position === 'right') {
               // Step 02: On mobile, bring much closer to circle line to prevent overflow
-              circleRadius = radius + (isMobile ? -10 : 20); // Negative offset on mobile to bring inside/on the line
+              circleRadius = radius + (isMobile ? 2 : 20); // Very close to line on mobile, still outside
             }
             const x = centerX + circleRadius * Math.cos(angleRad);
             const y = centerY + circleRadius * Math.sin(angleRad);
