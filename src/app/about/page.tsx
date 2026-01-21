@@ -5,9 +5,9 @@ import Image from 'next/image';
 
 export default function AboutPage() {
   return (
-    <div className="pt-20">
+    <div>
       {/* Hero Section with Background */}
-      <section className="relative py-20 bg-gradient-to-b from-gray-50 to-white overflow-hidden">
+      <section className="relative pt-24 md:pt-28 pb-20 bg-gradient-to-b from-gray-50 to-white overflow-hidden">
         {/* Background Image */}
         <div className="absolute inset-0 z-0">
           <Image

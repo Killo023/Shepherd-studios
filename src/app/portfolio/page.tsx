@@ -27,9 +27,9 @@ export default function PortfolioPage() {
   };
 
   return (
-    <div className="pt-20">
+    <div>
       {/* Hero Section */}
-      <section className="relative py-20 bg-gradient-to-b from-gray-50 to-white overflow-hidden">
+      <section className="relative pt-24 md:pt-28 pb-20 bg-gradient-to-b from-gray-50 to-white overflow-hidden">
         {/* Background Image */}
         <div className="absolute inset-0 z-0">
           <Image
