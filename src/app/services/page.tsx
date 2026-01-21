@@ -39,9 +39,9 @@ const services = [
 
 export default function ServicesPage() {
   return (
-    <div className="pt-32">
+    <div>
       {/* Hero Section */}
-      <section className="relative py-24 bg-gradient-to-b from-white to-gray-50 overflow-hidden">
+      <section className="relative pt-24 pb-24 bg-gradient-to-b from-white to-gray-50 overflow-hidden">
         {/* Background Image */}
         <div className="absolute inset-0 z-0">
           <Image
