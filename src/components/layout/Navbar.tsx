@@ -33,9 +33,9 @@ export default function Navbar() {
       }`}
     >
       <div className="max-w-7xl mx-auto px-2 sm:px-4 md:px-6 lg:px-8">
-        <div className="flex items-center justify-between min-h-[116px] md:min-h-[120px] lg:min-h-[124px] py-1 gap-2">
+        <div className="flex items-center justify-between h-[116px] md:h-[120px] lg:h-[124px] py-1 gap-2">
           {/* Logo */}
-              <Link href="/" className="flex items-center px-1 md:px-4 lg:px-6 flex-shrink min-w-0">
+              <Link href="/" className="flex items-center px-1 md:px-4 lg:px-6 flex-shrink min-w-0 overflow-hidden">
                 <Image
                   src="/images/logo/Shepherds Logo-01.png"
                   alt="Shepherd Studios"
