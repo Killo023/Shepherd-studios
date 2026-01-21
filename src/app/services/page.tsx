@@ -41,7 +41,7 @@ export default function ServicesPage() {
   return (
     <div>
       {/* Hero Section */}
-      <section className="relative pt-[250px] md:pt-[250px] pb-24 bg-gradient-to-b from-white to-gray-50 overflow-hidden">
+      <section className="relative pt-[280px] md:pt-[300px] pb-24 bg-gradient-to-b from-white to-gray-50 overflow-hidden">
         {/* Background Image */}
         <div className="absolute inset-0 z-0">
           <Image
