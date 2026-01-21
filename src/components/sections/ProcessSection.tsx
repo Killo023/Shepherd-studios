@@ -90,10 +90,13 @@ export default function ProcessSection() {
             let labelOffsetY = 0;
             
             // Adjust label position based on step position
+            // Bring labels closer to circles for top and bottom steps
             if (step.position === 'top') {
-              labelOffsetY = -50; // Above the circle
+              labelRadius = radius + 50; // Closer to circle
+              labelOffsetY = -30; // Above the circle, closer
             } else if (step.position === 'bottom') {
-              labelOffsetY = 50; // Below the circle
+              labelRadius = radius + 50; // Closer to circle
+              labelOffsetY = 30; // Below the circle, closer
             } else if (step.position === 'right') {
               labelOffsetX = 50; // To the right of the circle
             }
