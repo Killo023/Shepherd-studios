@@ -1,6 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import { useState, useEffect } from 'react';
 
 const processSteps = [
   {
@@ -30,9 +31,19 @@ const processSteps = [
 ];
 
 export default function ProcessSection() {
+  const [isMobile, setIsMobile] = useState(false);
   const radius = 150;
   const centerX = 200;
   const centerY = 200;
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   return (
     <div className="flex flex-col lg:flex-row items-center justify-center gap-12 lg:gap-16 py-8">
@@ -88,8 +99,8 @@ export default function ProcessSection() {
             } else if (step.position === 'bottom') {
               circleRadius = radius + 7; // Step 03: Very close to line but still outside
             } else if (step.position === 'right') {
-              // Step 02: Closer to line but still outside (will be adjusted with CSS for mobile)
-              circleRadius = radius + 20;
+              // Step 02: On mobile, bring closer to circle line to prevent overflow
+              circleRadius = radius + (isMobile ? 5 : 20);
             }
             const x = centerX + circleRadius * Math.cos(angleRad);
             const y = centerY + circleRadius * Math.sin(angleRad);
@@ -109,10 +120,10 @@ export default function ProcessSection() {
               labelRadius = circleRadius + 55; // Further from circle to prevent overlap with step 03
               labelOffsetY = 30; // Below the circle, with more space to prevent overlap
             } else if (step.position === 'right') {
-              // Step 02 label: Adjust for mobile to prevent overflow
-              labelRadius = circleRadius + 50; // Further from circle to prevent overlap
-              labelOffsetY = -20; // Above the circle to prevent overlap
-              labelOffsetX = 10; // Additional offset (will be adjusted with CSS for mobile)
+              // Step 02 label: On mobile, bring closer to circle and adjust positioning
+              labelRadius = circleRadius + (isMobile ? 20 : 50);
+              labelOffsetY = isMobile ? -15 : -20;
+              labelOffsetX = isMobile ? -10 : 10; // Move left on mobile to keep it on screen
             }
 
             const labelX = centerX + labelRadius * Math.cos(angleRad) + labelOffsetX;
