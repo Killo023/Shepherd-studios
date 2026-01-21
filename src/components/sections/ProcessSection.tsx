@@ -105,8 +105,8 @@ export default function ProcessSection() {
               labelRadius = circleRadius + 15; // Close to the circle for step 01
               labelOffsetY = -12; // Above the circle, very close
             } else if (step.position === 'bottom') {
-              labelRadius = circleRadius + 50; // Further from circle to prevent overlap with step 03
-              labelOffsetY = 25; // Below the circle, with more space to prevent overlap
+              labelRadius = circleRadius + 55; // Further from circle to prevent overlap with step 03
+              labelOffsetY = 30; // Below the circle, with more space to prevent overlap
             } else if (step.position === 'right') {
               labelRadius = circleRadius + 45; // To the right of the circle
               labelOffsetX = 15; // Additional offset
