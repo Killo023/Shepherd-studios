@@ -88,7 +88,8 @@ export default function ProcessSection() {
             } else if (step.position === 'bottom') {
               circleRadius = radius + 7; // Step 03: Very close to line but still outside
             } else if (step.position === 'right') {
-              circleRadius = radius + 20; // Step 02: Closer to line but still outside
+              // Step 02: Closer to line but still outside (will be adjusted with CSS for mobile)
+              circleRadius = radius + 20;
             }
             const x = centerX + circleRadius * Math.cos(angleRad);
             const y = centerY + circleRadius * Math.sin(angleRad);
@@ -108,9 +109,10 @@ export default function ProcessSection() {
               labelRadius = circleRadius + 55; // Further from circle to prevent overlap with step 03
               labelOffsetY = 30; // Below the circle, with more space to prevent overlap
             } else if (step.position === 'right') {
+              // Step 02 label: Adjust for mobile to prevent overflow
               labelRadius = circleRadius + 50; // Further from circle to prevent overlap
               labelOffsetY = -20; // Above the circle to prevent overlap
-              labelOffsetX = 10; // Additional offset
+              labelOffsetX = 10; // Additional offset (will be adjusted with CSS for mobile)
             }
 
             const labelX = centerX + labelRadius * Math.cos(angleRad) + labelOffsetX;
@@ -140,14 +142,15 @@ export default function ProcessSection() {
 
                 {/* Step Label */}
                 <div
-                  className="absolute"
+                  className={`absolute ${step.position === 'right' ? 'md:left-auto md:right-0 md:transform-none md:translate-x-0 md:translate-y-0' : ''}`}
                   style={{
-                    left: `${(labelX / 400) * 100}%`,
+                    left: step.position === 'right' ? 'auto' : `${(labelX / 400) * 100}%`,
+                    right: step.position === 'right' ? '0' : 'auto',
                     top: `${(labelY / 400) * 100}%`,
-                    transform: 'translate(-50%, -50%)',
+                    transform: step.position === 'right' ? 'translateY(-50%)' : 'translate(-50%, -50%)',
                   }}
                 >
-                  <p className="text-primary font-semibold text-sm md:text-base text-center whitespace-nowrap bg-white/80 px-4 py-2 rounded-md shadow-sm" style={{ letterSpacing: '0.01em', wordSpacing: '0.1em' }}>
+                  <p className={`text-primary font-semibold text-sm md:text-base text-center whitespace-nowrap bg-white/80 px-4 py-2 rounded-md shadow-sm ${step.position === 'right' ? 'md:text-right' : ''}`} style={{ letterSpacing: '0.01em', wordSpacing: '0.1em' }}>
                     {step.title}
                   </p>
                 </div>
