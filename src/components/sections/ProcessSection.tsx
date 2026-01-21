@@ -78,10 +78,12 @@ export default function ProcessSection() {
 
           {/* Process Steps with Labels */}
           {processSteps.map((step, index) => {
-            // Calculate position on circle
+            // Calculate position on circle - move circles outside the circle line
             const angleRad = (step.angle * Math.PI) / 180;
-            const x = centerX + radius * Math.cos(angleRad);
-            const y = centerY + radius * Math.sin(angleRad);
+            // Position circles outside the circle line (radius + offset)
+            const circleRadius = radius + (step.position === 'top' ? 30 : step.position === 'bottom' ? 30 : 30);
+            const x = centerX + circleRadius * Math.cos(angleRad);
+            const y = centerY + circleRadius * Math.sin(angleRad);
 
             // Calculate label offset position based on position
             // Position labels consistently outside the circle
@@ -90,15 +92,16 @@ export default function ProcessSection() {
             let labelOffsetY = 0;
             
             // Adjust label position based on step position
-            // Bring labels closer to circles for top and bottom steps
+            // Position labels relative to the circle (which is now outside the line)
             if (step.position === 'top') {
-              labelRadius = radius + 20; // Very close to circle for step 01
+              labelRadius = circleRadius + 20; // Close to the circle for step 01
               labelOffsetY = -15; // Above the circle, very close
             } else if (step.position === 'bottom') {
-              labelRadius = radius + 60; // Further from circle to prevent overlap with step 03
-              labelOffsetY = 40; // Below the circle, with more space
+              labelRadius = circleRadius + 40; // Further from circle to prevent overlap with step 03
+              labelOffsetY = 30; // Below the circle, with more space
             } else if (step.position === 'right') {
-              labelOffsetX = 50; // To the right of the circle
+              labelRadius = circleRadius + 50; // To the right of the circle
+              labelOffsetX = 20; // Additional offset
             }
 
             const labelX = centerX + labelRadius * Math.cos(angleRad) + labelOffsetX;
