@@ -15,9 +15,9 @@ export default function Footer() {
               <Image
                 src="/images/logo/Shepherds Logo-01.png"
                 alt="Shepherd Studios"
-                width={270}
-                height={102}
-                className="h-20 md:h-24 w-auto brightness-0 invert"
+                width={600}
+                height={270}
+                className="h-[216px] md:h-[220px] lg:h-[224px] w-auto brightness-0 invert"
               />
             </div>
             <p className="text-gray-400 mb-4">

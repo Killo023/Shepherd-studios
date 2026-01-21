@@ -100,7 +100,13 @@ export default function ProcessSection() {
               circleRadius = radius + 7; // Step 03: Very close to line but still outside
             } else if (step.position === 'right') {
               // Step 02: On mobile, bring much closer to circle line to prevent overflow
-              circleRadius = radius + (isMobile ? 2 : 20); // Very close to line on mobile, still outside
+              circleRadius = radius + (isMobile ? 0 : 20); // On the line on mobile, still outside on desktop
+            } else if (step.position === 'top') {
+              // On mobile, bring step 01 closer to circle line
+              circleRadius = radius + (isMobile ? 30 : 50);
+            } else if (step.position === 'bottom') {
+              // On mobile, bring step 03 closer to circle line
+              circleRadius = radius + (isMobile ? 2 : 7);
             }
             const x = centerX + circleRadius * Math.cos(angleRad);
             const y = centerY + circleRadius * Math.sin(angleRad);
@@ -114,15 +120,17 @@ export default function ProcessSection() {
             // Adjust label position based on step position
             // Position labels relative to the circle (which is now outside the line)
             if (step.position === 'top') {
-              labelRadius = circleRadius + 15; // Close to the circle for step 01
-              labelOffsetY = -12; // Above the circle, very close
+              // On mobile, bring labels closer to circles
+              labelRadius = circleRadius + (isMobile ? 8 : 15); // Closer on mobile
+              labelOffsetY = isMobile ? -8 : -12; // Closer on mobile
             } else if (step.position === 'bottom') {
-              labelRadius = circleRadius + 55; // Further from circle to prevent overlap with step 03
-              labelOffsetY = 30; // Below the circle, with more space to prevent overlap
+              // On mobile, bring labels closer to circles
+              labelRadius = circleRadius + (isMobile ? 25 : 55); // Closer on mobile
+              labelOffsetY = isMobile ? 15 : 30; // Closer on mobile
             } else if (step.position === 'right') {
               // Step 02 label: On mobile, bring closer to circle and adjust positioning
-              labelRadius = circleRadius + (isMobile ? 20 : 50);
-              labelOffsetY = isMobile ? -15 : -20;
+              labelRadius = circleRadius + (isMobile ? 12 : 50); // Much closer on mobile
+              labelOffsetY = isMobile ? -10 : -20;
               labelOffsetX = isMobile ? -10 : 10; // Move left on mobile to keep it on screen
             }
 
