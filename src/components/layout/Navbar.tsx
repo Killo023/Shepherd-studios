@@ -41,7 +41,7 @@ export default function Navbar() {
                   alt="Shepherd Studios"
                   width={600}
                   height={270}
-                  className={`h-16 md:h-20 lg:h-24 w-auto transition-all duration-300 ${
+                  className={`h-[116px] md:h-[120px] lg:h-[124px] w-auto transition-all duration-300 ${
                     scrolled || shouldUseWhiteNavbar
                       ? '' 
                       : 'brightness-0 invert drop-shadow-[0_4px_12px_rgba(255,255,255,0.3)]'
