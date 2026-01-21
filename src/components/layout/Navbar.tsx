@@ -33,7 +33,7 @@ export default function Navbar() {
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-20 md:h-24 lg:h-28 py-1">
+        <div className="flex items-center justify-between min-h-[116px] md:min-h-[120px] lg:min-h-[124px] py-1">
           {/* Logo */}
               <Link href="/" className="flex items-center px-2 md:px-4 lg:px-6">
                 <Image
@@ -86,7 +86,7 @@ export default function Navbar() {
           {/* Mobile menu button */}
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className={`md:hidden p-2 rounded-md focus:outline-none transition-colors ${
+            className={`md:hidden p-2 rounded-md focus:outline-none transition-colors z-10 relative flex-shrink-0 ${
               scrolled || shouldUseWhiteNavbar
                 ? 'text-gray-700 hover:text-primary'
                 : 'text-white hover:text-white/80'
