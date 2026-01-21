@@ -72,6 +72,10 @@ export default function ContactSection() {
               <p className="font-semibold text-gray-900 mb-3">Phone</p>
               <div className="space-y-2">
                 <p className="text-gray-600 text-sm">
+                  <span className="font-medium">Admin:</span><br />
+                  <a href="tel:+27691871037" className="hover:text-primary transition-colors">+27 69 187 1037</a>
+                </p>
+                <p className="text-gray-600 text-sm">
                   <span className="font-medium">Benito:</span><br />
                   <a href="tel:+27734545317" className="hover:text-primary transition-colors">+27 73 454 5317</a>
                 </p>
