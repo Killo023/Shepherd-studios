@@ -86,7 +86,7 @@ export default function ProcessSection() {
             if (step.position === 'top') {
               circleRadius = radius + 50; // Step 01: Further outside to ensure completely outside the line
             } else if (step.position === 'bottom') {
-              circleRadius = radius + 25; // Step 03: Closer to line but still outside
+              circleRadius = radius + 15; // Step 03: Much closer to line but still outside
             } else if (step.position === 'right') {
               circleRadius = radius + 40; // Step 02: Outside the line
             }
