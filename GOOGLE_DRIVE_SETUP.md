@@ -3,7 +3,7 @@
 ## Step 1: Upload Videos to Google Drive
 
 1. **Go to Google Drive:**
-   - Visit https://drive.google.com
+   - Visit 
    - Sign in to your Google account
 
 2. **Create a Folder (Optional but Recommended):**

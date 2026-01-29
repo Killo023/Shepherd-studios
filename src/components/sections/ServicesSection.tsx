@@ -9,17 +9,17 @@ const services = [
   {
     title: 'Motion Graphics',
     description: 'Engaging motion graphics to bring stories to life',
-    image: 'https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=600&q=80',
+    image: '/images/services/videography.jpg',
   },
   {
     title: 'Videography & Media',
     description: 'Professional video production and media services',
-    image: 'https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?w=600&q=80',
+    image: '/images/services/videography.jpg',
   },
   {
     title: 'Graphic Design',
     description: 'Creative graphic design solutions for your brand',
-    image: 'https://images.unsplash.com/photo-1558655146-364adaf1fcc9?w=600&q=80',
+    image: '/images/services/Design.jpg',
   },
 ];
 
