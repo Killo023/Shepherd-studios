@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import ProcessSection from '@/components/sections/ProcessSection';
+import IndustriesSection from '@/components/sections/IndustriesSection';
 
 const services = [
   {
@@ -292,6 +293,9 @@ export default function ServicesPage() {
           </div>
         </div>
       </section>
+
+      {/* Industries Section */}
+      <IndustriesSection />
 
       {/* CTA Section */}
       <section className="py-20 bg-primary text-white">

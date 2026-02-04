@@ -69,7 +69,7 @@ export const videoData = [
   {
     id: '1',
     title: 'Knorr Durban July Corporate Video',
-    description: '', // Add description when available
+    description: 'A professional corporate video capturing the essence of the prestigious Durban July event. This production showcases elegant event coverage, seamless editing, and sophisticated motion graphics that bring the corporate experience to life with clarity and visual appeal.',
     thumbnail: '/images/videos/placeholder.svg',
     videoPath: 'https://drive.google.com/file/d/190WtYyk4GN2jk4-vmgFgDcuvN9K3a53j/view?usp=drive_link',
     category: 'corporate',
@@ -77,7 +77,7 @@ export const videoData = [
   {
     id: '2',
     title: 'Knorr Cook-Off Highlight Video',
-    description: '', // Add description when available
+    description: 'An energetic highlight reel from the Knorr Cook-Off competition, featuring dynamic editing, vibrant motion graphics, and compelling storytelling. This video captures the excitement and culinary creativity of the event through engaging visuals and smooth transitions.',
     thumbnail: '/images/videos/placeholder.svg',
     videoPath: 'https://drive.google.com/file/d/1X0iaMau0O0NCMOx28TIGvt0EQ7mGkhJM/view?usp=drive_link',
     category: 'corporate',
@@ -85,7 +85,7 @@ export const videoData = [
   {
     id: '3',
     title: 'Pizza Hut - Brand Campaign',
-    description: '', // Add description when available
+    description: 'A dynamic brand campaign video for Pizza Hut featuring creative motion graphics, engaging animations, and compelling visual storytelling. This campaign demonstrates how motion design can effectively communicate brand values and create memorable consumer experiences.',
     thumbnail: '/images/videos/placeholder.svg',
     videoPath: 'https://drive.google.com/file/d/1sQ5Ik9O-qzTNFHwLGB9u5vEp6VUOWr91/view?usp=drive_link',
     category: 'brand-campaign',
@@ -93,7 +93,7 @@ export const videoData = [
   {
     id: '4',
     title: 'Puma - Brand Campaign',
-    description: '', // Add description when available
+    description: 'A high-energy brand campaign for Puma showcasing athletic excellence through powerful motion graphics and dynamic visuals. This campaign combines sleek design, smooth animations, and impactful storytelling to create a memorable brand experience that resonates with the target audience.',
     thumbnail: '/images/videos/placeholder.svg',
     videoPath: 'https://drive.google.com/file/d/10kwMsRjLPCAj1DyJ-tkoE3sI7ACC3e1P/view?usp=drive_link',
     category: 'brand-campaign',
@@ -101,7 +101,7 @@ export const videoData = [
   {
     id: '5',
     title: 'Melrose Arch - Brand Campaign',
-    description: '', // Add description when available
+    description: 'An elegant brand campaign video for Melrose Arch featuring sophisticated motion graphics and refined visual storytelling. This production showcases the premium lifestyle and architectural beauty of the location through carefully crafted animations and professional videography.',
     thumbnail: '/images/videos/placeholder.svg',
     videoPath: 'https://drive.google.com/file/d/1DglaZt0o7_KLFzPn0DOHxynRVTBcxsKZ/view?usp=drive_link',
     category: 'brand-campaign',
@@ -109,10 +109,18 @@ export const videoData = [
   {
     id: '6',
     title: 'Play Energy - Brand Campaign',
-    description: '', // Add description when available
+    description: 'A vibrant and energetic brand campaign for Play Energy that brings the brand\'s dynamic personality to life through creative motion graphics and engaging animations. This campaign effectively communicates energy and excitement while maintaining brand consistency and visual appeal.',
     thumbnail: '/images/videos/placeholder.svg',
     videoPath: 'https://drive.google.com/file/d/1DCyrBg1A4pyy8mIwm_CJLJJqhjeth3sa/view?usp=drive_link',
     category: 'brand-campaign',
+  },
+  {
+    id: '7',
+    title: 'Motion Graphics Showcase',
+    description: 'A curated selection of motion graphics work showcasing dynamic visuals, smooth animations, and creative storytelling. This piece demonstrates our expertise in creating engaging motion content that captures attention and communicates effectively.',
+    thumbnail: '/images/videos/placeholder.svg',
+    videoPath: 'https://drive.google.com/file/d/12npoIjBO4tJEw0tEHHhw8U9_ezAbZSyk/view?usp=sharing',
+    category: 'corporate',
   },
 ];
 

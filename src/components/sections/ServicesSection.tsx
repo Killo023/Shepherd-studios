@@ -9,7 +9,7 @@ const services = [
   {
     title: 'Motion Graphics',
     description: 'Engaging motion graphics to bring stories to life',
-    image: '/images/services/videography.jpg',
+    image: '/images/services/Motion Graphics.png',
   },
   {
     title: 'Videography & Media',

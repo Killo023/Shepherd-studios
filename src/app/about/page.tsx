@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import Image from 'next/image';
+import IndustriesSection from '@/components/sections/IndustriesSection';
 
 export default function AboutPage() {
   return (
@@ -248,6 +249,9 @@ export default function AboutPage() {
           </div>
         </div>
       </section>
+
+      {/* Industries Section */}
+      <IndustriesSection />
     </div>
   );
 }

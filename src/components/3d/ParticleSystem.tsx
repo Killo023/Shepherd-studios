@@ -52,15 +52,17 @@ export default function ParticleSystem({
       const y = Math.sin((i / 100) * Math.PI * 2) * factor;
 
       const array = mesh.current!.geometry.attributes.position.array as Float32Array;
-      array[i * 3] = x;
-      array[i * 3 + 1] = y;
+      if (array && i * 3 + 1 < array.length) {
+        array[i * 3] = x;
+        array[i * 3 + 1] = y;
+      }
     });
 
     mesh.current.geometry.attributes.position.needsUpdate = true;
   });
 
   return (
-    <points ref={mesh}>
+    <points ref={mesh} key={`particles-${count}-${color}`}>
       <bufferGeometry>
         <bufferAttribute
           attach="attributes-position"
