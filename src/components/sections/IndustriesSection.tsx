@@ -18,17 +18,16 @@ const industries = [
 export default function IndustriesSection() {
   return (
     <section className="py-24 md:py-32 bg-gray-50 relative overflow-hidden">
-      {/* Background Image - Industrial/Construction Theme */}
+      {/* Background Image - Industries */}
       <div className="absolute inset-0 z-0">
         <Image
-          src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1920&q=80"
-          alt="Modern industrial and commercial buildings"
+          src="/images/services/Industries.png"
+          alt="Industries we work in"
           fill
-          className="object-cover opacity-25"
-          unoptimized
+          className="object-cover"
           priority
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-gray-50/85 via-gray-50/75 to-gray-50/85" />
+        <div className="absolute inset-0 bg-gray-50/85" />
       </div>
       
       {/* Decorative 3D particles */}
