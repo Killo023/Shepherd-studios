@@ -20,6 +20,7 @@ const clients = [
   { name: 'SA Fashion Week', logo: '/images/clients/SA fashion week.PNG' },
   { name: 'Client 13', logo: '/images/clients/client 13.PNG' },
   { name: 'Discovery Bank', logo: '/images/clients/discovery bank.PNG' },
+  { name: 'Arch Collab', logo: '/images/clients/Arch Collab logo.png' },
 ];
 
 export default function ClientsSection() {
