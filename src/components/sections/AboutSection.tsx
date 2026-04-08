@@ -54,15 +54,19 @@ export default function AboutSection() {
             </div>
             
             <p className="text-lg text-lightBlue leading-relaxed">
-              Shepherd Studios is a modern creative studio dedicated to
-              delivering exceptional digital experiences. We combine cutting-edge
-              technology with innovative design to create solutions that make a
-              difference.
+              Shepherd Studios is a visual communication studio specialising in
+              motion graphics, video production, and design for organisations
+              operating in complex environments.
             </p>
             <p className="text-lg text-lightBlue leading-relaxed">
-              Our team of talented designers and developers work together to
-              bring your vision to life, ensuring every project exceeds
-              expectations.
+              We work with companies across financial services, technology,
+              consumer brands, and industrial sectors to help them explain
+              systems, communicate processes, and present ideas with clarity.
+            </p>
+            <p className="text-lg text-lightBlue leading-relaxed">
+              Our work focuses on making complex information accessible through
+              clear visual storytelling that can scale across platforms, teams,
+              and real-world operations.
             </p>
             
             <div className="pt-4">

@@ -6,13 +6,12 @@ import Scene3D from '@/components/3d/Scene3D';
 import ParticleSystem from '@/components/3d/ParticleSystem';
 
 const industries = [
-  'Mining',
-  'Manufacturing',
-  'Engineering & Construction',
-  'Logistics',
+  'Financial Services & Fintech',
+  'Technology & Digital Platforms',
+  'Consumer Brands & Retail',
+  'Industrial & Manufacturing',
   'Energy',
-  'Infrastructure',
-  'Corporate & Commercial',
+  'Resources & Infrastructure',
 ];
 
 export default function IndustriesSection() {
@@ -68,7 +67,7 @@ export default function IndustriesSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-4 md:gap-6"
+          className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6"
         >
           {industries.map((industry, index) => (
             <motion.div

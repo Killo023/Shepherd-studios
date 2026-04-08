@@ -8,17 +8,20 @@ import Image from 'next/image';
 const services = [
   {
     title: 'Motion Graphics',
-    description: 'Engaging motion graphics to bring stories to life',
+    description:
+      'Clear, structured motion graphics that simplify complex ideas, systems, and processes. From explainers to operational visuals, we design motion that communicates quickly and effectively.',
     image: '/images/services/Motion Graphics.png',
   },
   {
     title: 'Videography & Media',
-    description: 'Professional video production and media services',
+    description:
+      'Professional video production designed for organisations that need clarity and credibility. From corporate storytelling to operational content, we create video that informs, engages, and scales across platforms.',
     image: '/images/services/videography.jpg',
   },
   {
     title: 'Graphic Design',
-    description: 'Creative graphic design solutions for your brand',
+    description:
+      'Strategic visual design that helps organisations communicate clearly. From brand assets to complex visual systems, we design graphics that support real-world communication.',
     image: '/images/services/Design.jpg',
   },
 ];
